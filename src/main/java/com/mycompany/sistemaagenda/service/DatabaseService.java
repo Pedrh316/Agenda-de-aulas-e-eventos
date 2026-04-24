@@ -1,13 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.sistemaagenda.service;
 
-/**
- *
- * @author joaop
- */
+import com.mycompany.sistemaagenda.model.Database;
+import java.sql.*;
+
+
 public class DatabaseService {
+    private static DatabaseService instance;
+    private Database db;
     
+    private DatabaseService() {
+        db = null;        
+    }
+    
+    public static DatabaseService getInstance() {
+        if(instance == null) instance = new DatabaseService();
+        return instance;
+    }
+    
+    
+    public void connect(String url, String user, String password) throws ClassNotFoundException, SQLException {
+        this.db = new Database(url, password, user);
+        testConnection();
+    }
+    
+    private void testConnection() throws ClassNotFoundException, SQLException {
+        Class.forName(db.getDriver());
+        Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getSenha());        
+        con.close();
+    }
+        
 }
