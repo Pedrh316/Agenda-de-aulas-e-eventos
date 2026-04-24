@@ -1,7 +1,9 @@
 package com.mycompany.sistemaagenda.service;
 
 import com.mycompany.sistemaagenda.model.Database;
+import java.io.FileInputStream;
 import java.sql.*;
+import java.util.Properties;
 
 
 public class DatabaseService {
@@ -17,6 +19,18 @@ public class DatabaseService {
         return instance;
     }
     
+    public void connect() throws Exception {
+        Properties props = new Properties();
+        
+        FileInputStream input = new FileInputStream("config/database.properties");
+        props.load(input);
+
+        connect(
+                props.getProperty("url"),
+                props.getProperty("user"),
+                props.getProperty("password")
+        );
+    }
     
     public void connect(String url, String user, String password) throws ClassNotFoundException, SQLException {
         this.db = new Database(url, password, user);
