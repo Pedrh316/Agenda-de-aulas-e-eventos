@@ -2,6 +2,8 @@ package com.mycompany.sistemaagenda.view;
 
 import com.github.weisj.darklaf.DarkLaf;
 import com.github.weisj.darklaf.LafManager;
+import com.mycompany.sistemaagenda.controller.DatabaseController;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -151,7 +153,25 @@ public class DbConnection extends javax.swing.JFrame {
 
     
     private void connect(){
-        
+        try {
+            DatabaseController dbCtrl = new DatabaseController();            
+            dbCtrl.connect(
+                    urlTf.getText(), 
+                    userTf.getText(), 
+                    String.valueOf(passwordPf.getPassword())
+            );
+            
+            JOptionPane.showMessageDialog(null, "Conexão bem-sucedida!");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Erro ao conectar ao banco de dados:\n" + e,
+                "Erro de Conexão",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
     }
     private void connect(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) connect();
