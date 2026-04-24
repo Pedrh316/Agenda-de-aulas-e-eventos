@@ -25,7 +25,7 @@ public class DatabaseService {
     
     private void testConnection() throws ClassNotFoundException, SQLException {
         Class.forName(db.getDriver());
-        Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getSenha());        
+        Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());        
         con.close();
     }
         

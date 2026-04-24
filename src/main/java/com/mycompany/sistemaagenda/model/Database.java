@@ -4,20 +4,20 @@ package com.mycompany.sistemaagenda.model;
 public class Database {
     private final String driver;
     private String url;
-    private String senha;
+    private String password;
     private String user;
 
     public Database() {
         this.driver = "com.mysql.cj.jdbc.Driver";
         url = "";
-        senha = "";
+        password = "";
         user = "";
     }
     
-    public Database(String url, String senha, String user) {
+    public Database(String url, String password, String user) {
         this.driver = "com.mysql.cj.jdbc.Driver";
         this.url = url;
-        this.senha = senha;
+        this.password = password;
         this.user = user;
     }
     
@@ -29,8 +29,8 @@ public class Database {
         return url;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
     public String getUser() {
@@ -41,8 +41,8 @@ public class Database {
         this.url = url;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setUser(String user) {
