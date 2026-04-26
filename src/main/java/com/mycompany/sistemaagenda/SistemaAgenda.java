@@ -4,6 +4,7 @@ import com.github.weisj.darklaf.DarkLaf;
 import com.github.weisj.darklaf.LafManager;
 import com.mycompany.sistemaagenda.controller.DatabaseController;
 import com.mycompany.sistemaagenda.view.DbConnection;
+import com.mycompany.sistemaagenda.view.Login;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -22,7 +23,8 @@ public class SistemaAgenda {
         DatabaseController dbCtrl = new DatabaseController();               
         
         if(dbCtrl.connect()){
-            //janela login            
+            Login login = new Login();
+            login.setVisible(true);
         }
         else{            
             DbConnection dbConWindow = new DbConnection();
