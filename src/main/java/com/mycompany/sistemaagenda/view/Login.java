@@ -1,10 +1,7 @@
 package com.mycompany.sistemaagenda.view;
 
-
-import com.github.weisj.darklaf.LafManager;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
+import com.mycompany.sistemaagenda.controller.LoginController;
 
 
 public final class Login extends javax.swing.JFrame {    
@@ -213,11 +210,18 @@ public final class Login extends javax.swing.JFrame {
     public void entrar(){
         emailTf.setText(emailTf.getText().replaceAll("\\s+", ""));
         try {
+            LoginController loginController = new LoginController();
+            if(loginController.login(emailTf.getText(), String.valueOf(passwordPf.getPassword()))){
+                passwordPf.setText("");
+                //logar (falta a lógica de isAdmin)
+            }else{
+                errorLb.setVisible(true);
+            }
             
-        } catch (Exception ex) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(
                 null,
-                ex,
+                e,
                 "Erro",
                 JOptionPane.ERROR_MESSAGE
             );
