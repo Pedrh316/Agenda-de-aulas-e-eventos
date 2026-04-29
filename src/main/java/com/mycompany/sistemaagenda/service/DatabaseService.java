@@ -21,9 +21,8 @@ public class DatabaseService {
     
     public void connect() throws Exception {
         Properties props = new Properties();
-        
-        FileInputStream input = new FileInputStream("config/database.properties");
-        props.load(input);
+                
+        props.load(new FileInputStream("config/database.properties"));
 
         connect(
                 props.getProperty("url"),
