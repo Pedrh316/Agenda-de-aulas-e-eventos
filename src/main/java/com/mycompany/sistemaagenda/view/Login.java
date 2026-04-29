@@ -221,7 +221,7 @@ public final class Login extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                 null,
-                e,
+                e.getMessage(),
                 "Erro",
                 JOptionPane.ERROR_MESSAGE
             );
