@@ -1,0 +1,104 @@
+package com.mycompany.sistemaagenda.dao;
+
+import com.mycompany.sistemaagenda.model.User;
+import com.mycompany.sistemaagenda.service.DatabaseService;
+import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
+
+
+public class UserDAO {
+    private DatabaseService dbServ;
+    
+    public UserDAO(){
+        dbServ = DatabaseService.getInstance();
+    }
+    
+    public void createUser(User user) throws SQLException, ClassNotFoundException{
+        String sql = "INSERT INTO usuario VALUES (?, ?, ?, ?)";
+        
+        try(Connection con = dbServ.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ps.setString(1, user.getEmail());            
+            ps.setString(2, user.getName());
+            ps.setString(3, user.getPassword());
+            ps.setBoolean(4, user.isAdmin());
+            
+            ps.executeUpdate();
+        }
+    }
+    
+    public User readUser(String email) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT * FROM usuario WHERE us_email = ?";
+        
+        try(Connection con = dbServ.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ps.setString(1, email);
+            
+            try(ResultSet rs = ps.executeQuery()){            
+                if(rs.next()){
+                    return new User(
+                            rs.getString("us_email"),
+                            rs.getString("us_nome"),
+                            rs.getString("us_senha"),
+                            rs.getBoolean("us_admin")
+                    );
+                }
+                return null;
+            }
+        }
+    }
+    
+    public List<User> readUsers() throws SQLException, ClassNotFoundException{
+        String sql = "SELECT * FROM usuario";
+        List<User> list = new LinkedList<>();
+        
+        try(
+            Connection con = dbServ.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+        ){
+            while(rs.next()){
+                list.add(new User(                        
+                        rs.getString("us_email"),
+                        rs.getString("us_nome"),
+                        rs.getString("us_senha"),
+                        rs.getBoolean("us_admin")
+                ));
+            }            
+            return list;
+        }
+    }
+    
+    public int updateUser(User user) throws SQLException, ClassNotFoundException{
+        String sql = "UPDATE usuario SET us_nome = ?,"
+                + "us_senha = ?,"
+                + "us_admin = ?"
+                + " WHERE us_email = ?";
+        
+        try(Connection con = dbServ.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)){
+                        
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getPassword());
+            ps.setBoolean(3, user.isAdmin());
+            ps.setString(4, user.getEmail());
+            
+            return ps.executeUpdate();
+        }
+    }
+    
+    public int deleteUser(User user) throws SQLException, ClassNotFoundException{
+        String sql = "DELETE FROM usuario WHERE us_email = ?";
+        
+        try(Connection con = dbServ.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)){
+                                    
+            ps.setString(1, user.getEmail());
+            
+            return ps.executeUpdate();
+        }
+    }
+}
