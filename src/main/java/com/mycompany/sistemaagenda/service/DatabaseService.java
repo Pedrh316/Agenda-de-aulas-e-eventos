@@ -45,6 +45,15 @@ public class DatabaseService {
         con.close();
     }
     
+    public Connection getConnection() throws ClassNotFoundException, SQLException{
+        Class.forName(db.getDriver());
+        return DriverManager.getConnection(
+            db.getUrl(),
+            db.getUser(),
+            db.getPassword()
+        );
+    }
+    
     private void generate() throws SQLException, ClassNotFoundException{
         try{
             connect();
