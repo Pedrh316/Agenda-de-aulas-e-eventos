@@ -1,9 +1,12 @@
 package com.mycompany.sistemaagenda.service;
 
 import com.mycompany.sistemaagenda.model.Database;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.Properties;
+import java.util.Scanner;
 
 
 public class DatabaseService {
@@ -41,5 +44,37 @@ public class DatabaseService {
         Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());        
         con.close();
     }
+    
+    private void generate() throws SQLException, ClassNotFoundException{
+        try{
+            connect();
+        } catch(Exception e){
+            System.out.println("Exceção:" + e);
+            return;
+        } 
         
+        Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+        Statement st = con.createStatement();
+        File script = new File("./Agenda.mwb");
+        String linha = new String();
+        StringBuilder texto_string = new StringBuilder();
+        
+        try(Scanner leitor = new Scanner(script)){
+            while(leitor.hasNextLine()){
+                linha = leitor.nextLine();
+                texto_string.append(linha);
+            }
+            
+            String[] sts = texto_string.toString().split(";");
+            
+            for(String executavel : sts){
+                if(!executavel.trim().equals("")) st.executeUpdate(executavel);
+            }
+        } catch(FileNotFoundException fnfe){
+            System.out.println("Arquivo inexistente ou corrompido");
+        } finally{
+            st.close();
+            con.close();
+        }
+    }
 }
