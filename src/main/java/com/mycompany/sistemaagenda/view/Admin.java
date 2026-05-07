@@ -4,9 +4,15 @@
  */
 package com.mycompany.sistemaagenda.view;
 
+import com.mycompany.sistemaagenda.dao.EventDAO;
+import com.mycompany.sistemaagenda.dao.UserDAO;
 import com.mycompany.sistemaagenda.model.Event;
 import com.mycompany.sistemaagenda.model.User;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,13 +26,17 @@ public class Admin extends javax.swing.JFrame {
      * Creates new form Admin
      */
     
-    ArrayList<User> users;
-    ArrayList<Event> events;
+    List<User> users;
+    List<Event> events;
+    Event selectedEvent;
+    User selectedUser;
     
     public Admin() {
         initComponents();
         users = loadUsers();
         events = loadEvents();
+        loadUsersOnTable();
+        loadEventsOnTable();
     }
 
     /**
@@ -41,10 +51,10 @@ public class Admin extends javax.swing.JFrame {
         addEventBt = new javax.swing.JButton();
         deleteUserBr = new javax.swing.JButton();
         editEventBt = new javax.swing.JButton();
-        userTb = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        eventTb = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        userSp = new javax.swing.JScrollPane();
+        userTb = new javax.swing.JTable();
+        eventSp = new javax.swing.JScrollPane();
+        eventTb = new javax.swing.JTable();
         loadParticipantsBt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,7 +76,7 @@ public class Admin extends javax.swing.JFrame {
         editEventBt.setText("Editar Evento");
         editEventBt.addActionListener(this::editEventBtActionPerformed);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        userTb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -77,9 +87,14 @@ public class Admin extends javax.swing.JFrame {
                 "Usuários"
             }
         ));
-        userTb.setViewportView(jTable1);
+        userTb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userTbMouseClicked(evt);
+            }
+        });
+        userSp.setViewportView(userTb);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        eventTb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -90,7 +105,12 @@ public class Admin extends javax.swing.JFrame {
                 "Eventos"
             }
         ));
-        eventTb.setViewportView(jTable2);
+        eventTb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eventTbMouseClicked(evt);
+            }
+        });
+        eventSp.setViewportView(eventTb);
 
         loadParticipantsBt.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         loadParticipantsBt.setText("Ver Participantes");
@@ -108,10 +128,10 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(loadParticipantsBt)
                     .addComponent(editEventBt))
                 .addGap(18, 18, 18)
-                .addComponent(eventTb, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(eventSp, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(userTb, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addComponent(userSp, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addEventBt, deleteUserBr, editEventBt, loadParticipantsBt});
@@ -121,8 +141,8 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userTb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(eventTb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userSp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventSp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addEventBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -131,7 +151,7 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(loadParticipantsBt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(deleteUserBr)))
-                .addContainerGap(478, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {addEventBt, deleteUserBr, editEventBt, loadParticipantsBt});
@@ -155,25 +175,67 @@ public class Admin extends javax.swing.JFrame {
         editEvent();
     }//GEN-LAST:event_editEventBtActionPerformed
 
+    private void userTbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTbMouseClicked
+        int linha = userTb.getSelectedRow();
+        selectedUser = users.get(linha);
+    }//GEN-LAST:event_userTbMouseClicked
+
+    private void eventTbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eventTbMouseClicked
+        int linha = eventTb.getSelectedRow();
+        selectedEvent = events.get(linha);
+    }//GEN-LAST:event_eventTbMouseClicked
+
     private void addEvent(){
-        
+        AddEventDialog view = new AddEventDialog();
+        view.setVisible(true);
     }
     private void editEvent(){
-        
+        EditEventDialog editEventDialog = new EditEventDialog(this, selectedEvent);
+        editEventDialog.setVisible(true);
     }
     private void deleteUser(){
-        
+        UserDAO userDAO = new UserDAO();
+        try{
+            userDAO.deleteUser(selectedUser);
+            users = loadUsers();
+            loadUsersOnTable();
+        } catch (SQLException | ClassNotFoundException e){
+            JOptionPane.showMessageDialog(this, "Não foi possível excluir o usuário selecionado");
+        }
     }
     private void loadParticipants(){
         
     }
-    private ArrayList<User> loadUsers(){
-        ArrayList<User> users = new ArrayList();        
+    private List<User> loadUsers(){
+        UserDAO userDAO = new UserDAO();
+        List<User> users = new ArrayList();
+        try{
+            users = userDAO.readUsers();
+        } catch(SQLException | ClassNotFoundException e){
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao carregar os usuários do banco de dados");
+        }
         return users;
     }
-    private ArrayList<Event> loadEvents(){
-        ArrayList<Event> events = new ArrayList();        
+    public List<Event> loadEvents(){
+        EventDAO eventDAO = new EventDAO();
+        List<Event> events = new ArrayList();
+        try{
+            events = eventDAO.readEvents();
+        } catch(SQLException | ClassNotFoundException e){
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao carregar os eventos do banco de dados");
+        }
         return events;
+    }
+    
+    private void loadUsersOnTable(){
+        DefaultTableModel model = (DefaultTableModel) userTb.getModel();
+        model.setRowCount(0);   
+        for(User e : users){ model.addRow(new Object[]{e.getName()}); }
+    }
+    public void loadEventsOnTable(){
+        DefaultTableModel model = (DefaultTableModel) eventTb.getModel();
+        model.setRowCount(0);
+        for(Event e : events){ model.addRow(new Object[]{e.getName()}); }
     }
     /**
      * @param args the command line arguments
@@ -204,10 +266,10 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton addEventBt;
     private javax.swing.JButton deleteUserBr;
     private javax.swing.JButton editEventBt;
-    private javax.swing.JScrollPane eventTb;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JScrollPane eventSp;
+    private javax.swing.JTable eventTb;
     private javax.swing.JButton loadParticipantsBt;
-    private javax.swing.JScrollPane userTb;
+    private javax.swing.JScrollPane userSp;
+    private javax.swing.JTable userTb;
     // End of variables declaration//GEN-END:variables
 }
