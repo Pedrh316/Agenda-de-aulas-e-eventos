@@ -24,6 +24,12 @@ public class Navigator {
         dbConWindow.setVisible(true);
     }
     
+    public void showLogin(){        
+        if(loginWindow==null) loginWindow = new Login();
+        dbConWindow.setVisible(false);
+        loginWindow.setVisible(true);
+    }
+    
     public void adminLogin(){
         if(adminWindow == null) adminWindow = new Admin();
         adminWindow.setVisible(true);        

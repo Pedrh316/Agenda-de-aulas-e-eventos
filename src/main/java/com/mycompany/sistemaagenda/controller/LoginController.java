@@ -5,8 +5,8 @@ import com.mycompany.sistemaagenda.service.LoginService;
 import com.mycompany.sistemaagenda.view.Login;
 
 public class LoginController {
-    private Login loginWindow;
-    private Navigator nav;
+    private final Login loginWindow;
+    private final Navigator nav;
     
     public LoginController(Login loginWindow){
         this.loginWindow = loginWindow;
