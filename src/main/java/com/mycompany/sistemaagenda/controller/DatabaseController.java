@@ -8,16 +8,19 @@ import com.mycompany.sistemaagenda.view.DbConnection;
 public class DatabaseController {
     private final DbConnection dbConWindow;
     private final Navigator nav;
+    private final DatabaseService dbServ;
     
     public DatabaseController(DbConnection dbConWindow, Navigator nav) {        
-        this.dbConWindow = dbConWindow;        
-        this.nav = nav;        
+        this.dbConWindow = dbConWindow;
+        this.nav = nav;
+        dbServ = DatabaseService.getInstance();
     }
     
     public void connect() {
         try {            
-            DatabaseService.getInstance().connect();
-            nav.showLogin();
+            dbServ.connect();
+            dbServ.generate();
+            nav.showLogin();            
         } catch (Exception e) {            
             nav.showDbCon();
         }
@@ -25,7 +28,8 @@ public class DatabaseController {
     
     public void connect(String url, String user, String password){
         try{
-            DatabaseService.getInstance().connect(url, user, password);
+            dbServ.connect(url, user, password);
+            dbServ.generate();
             dbConWindow.showSuccessMsg();
             nav.showLogin();            
         } catch(Exception e){
