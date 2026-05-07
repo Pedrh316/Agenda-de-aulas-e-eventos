@@ -36,10 +36,6 @@ public class DatabaseService {
     
     public void connect(String url, String user, String password) throws ClassNotFoundException, SQLException {
         this.db = new Database(url, password, user);
-        testConnection();
-    }
-    
-    private void testConnection() throws ClassNotFoundException, SQLException {
         Class.forName(db.getDriver());
         Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());        
         con.close();
@@ -54,15 +50,10 @@ public class DatabaseService {
         );
     }
     
-    private void generate() throws SQLException, ClassNotFoundException{
-        try{
-            connect();
-        } catch(Exception e){
-            System.out.println("Exceção:" + e);
-            return;
-        } 
+    public void generate() throws SQLException, ClassNotFoundException{
+        if(db==null) return;
         
-        Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+        Connection con = getConnection();
         Statement st = con.createStatement();
         File script = new File("./Agenda.mwb");
         String linha = new String();
