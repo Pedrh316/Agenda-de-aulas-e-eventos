@@ -9,17 +9,17 @@ public class DatabaseController {
     private final DbConnection dbConWindow;
     private final Navigator nav;
     
-    public DatabaseController(DbConnection dbConWindow) {
-        this.dbConWindow = dbConWindow;
-        nav = Navigator.getInstance();
+    public DatabaseController(DbConnection dbConWindow, Navigator nav) {        
+        this.dbConWindow = dbConWindow;        
+        this.nav = nav;        
     }
     
-    public boolean connect() {
-        try {
+    public void connect() {
+        try {            
             DatabaseService.getInstance().connect();
-            return true;
-        } catch (Exception e) {
-            return false;
+            nav.showLogin();
+        } catch (Exception e) {            
+            nav.showDbCon();
         }
     }
     

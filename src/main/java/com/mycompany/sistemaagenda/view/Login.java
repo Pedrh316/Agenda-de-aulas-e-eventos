@@ -10,10 +10,12 @@ public final class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         errorLb.setVisible(false);
-        setLocationRelativeTo(null);
-        lCtrl = new LoginController(this);
+        setLocationRelativeTo(null);        
     }   
 
+    public void setController(LoginController dbCtrl){
+        this.lCtrl = dbCtrl;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

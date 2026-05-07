@@ -3,8 +3,8 @@ package com.mycompany.sistemaagenda;
 import com.github.weisj.darklaf.DarkLaf;
 import com.github.weisj.darklaf.LafManager;
 import com.mycompany.sistemaagenda.controller.DatabaseController;
-import com.mycompany.sistemaagenda.view.DbConnection;
-import com.mycompany.sistemaagenda.view.Login;
+import com.mycompany.sistemaagenda.navigation.Navigator;
+import java.awt.EventQueue;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -18,17 +18,13 @@ public class SistemaAgenda {
             UIManager.setLookAndFeel(new DarkLaf());
         }
         catch (UnsupportedLookAndFeelException e) {}
-        
-        
-        DatabaseController dbCtrl = new DatabaseController();               
-        
-        if(dbCtrl.connect()){
-            Login login = new Login();
-            login.setVisible(true);
-        }
-        else{            
-            DbConnection dbConWindow = new DbConnection();
-            dbConWindow.setVisible(true);
-        }
+                
+        EventQueue.invokeLater(() -> {            
+
+            Navigator nav = new Navigator();
+            DatabaseController dbCtrl = new DatabaseController(null, nav);
+            
+            dbCtrl.connect();
+        });                               
     }
 }

@@ -8,19 +8,19 @@ public class LoginController {
     private final Login loginWindow;
     private final Navigator nav;
     
-    public LoginController(Login loginWindow){
+    public LoginController(Login loginWindow, Navigator nav){
         this.loginWindow = loginWindow;
-        nav = Navigator.getInstance();
+        this.nav = nav;
     }
     
-    public void login(String email, String senha) throws Exception{
-        if (email.isBlank() || senha.isBlank()) {
+    public void login(String email, String password) throws Exception{
+        if (email.isBlank() || password.isBlank()) {
             throw new Exception("Preencha todos os campos");
         }
 
         LoginService loginService = new LoginService();
         
-        User user = loginService.authenticate(email, senha);
+        User user = loginService.authenticate(email, password);
         
         if(user == null){
             loginWindow.loginError();

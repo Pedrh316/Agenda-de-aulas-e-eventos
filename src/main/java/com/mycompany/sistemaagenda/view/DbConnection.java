@@ -9,8 +9,11 @@ public class DbConnection extends javax.swing.JFrame {
     
     public DbConnection() {        
         initComponents();
-        setLocationRelativeTo(null);
-        dbCtrl = new DatabaseController(this);
+        setLocationRelativeTo(null);        
+    }
+    
+    public void setController(DatabaseController dbCtrl){
+        this.dbCtrl = dbCtrl;
     }
     
     @SuppressWarnings("unchecked")
@@ -148,7 +151,6 @@ public class DbConnection extends javax.swing.JFrame {
     private void passwordPfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordPfKeyPressed
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) connect();
     }//GEN-LAST:event_passwordPfKeyPressed
-
     
     private void connect(){                 
         dbCtrl.connect(
@@ -169,6 +171,7 @@ public class DbConnection extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE
         );
     }
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
