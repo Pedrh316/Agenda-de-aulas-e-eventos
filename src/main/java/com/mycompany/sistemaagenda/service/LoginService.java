@@ -1,17 +1,18 @@
 package com.mycompany.sistemaagenda.service;
 
+import com.mycompany.sistemaagenda.dao.UserDAO;
+import com.mycompany.sistemaagenda.model.User;
+
 
 public class LoginService {
     
-    public boolean authenticate(String email, String senha) throws Exception{
-        /*
+    public User authenticate(String email, String password) throws Exception{        
         UserDAO userDAO = new UserDAO();
-        User user = userDAO.findByEmail(email);
+        User user = userDAO.readUser(email);
         
-        if (user == null) return false;
+        if(user == null) return null;
         
-        return user.getSenha().equals(senha);
-        */
-        return false;
+        if(user.getPassword().equals(password)) return user;
+        else return null;
     }
 }

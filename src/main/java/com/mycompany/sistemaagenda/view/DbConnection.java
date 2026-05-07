@@ -5,10 +5,15 @@ import javax.swing.JOptionPane;
 
 
 public class DbConnection extends javax.swing.JFrame {        
+    private DatabaseController dbCtrl;
     
     public DbConnection() {        
         initComponents();
-        setLocationRelativeTo(null);                  
+        setLocationRelativeTo(null);        
+    }
+    
+    public void setController(DatabaseController dbCtrl){
+        this.dbCtrl = dbCtrl;
     }
     
     @SuppressWarnings("unchecked")
@@ -132,47 +137,40 @@ public class DbConnection extends javax.swing.JFrame {
     }//GEN-LAST:event_connectBtActionPerformed
 
     private void connectBtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_connectBtKeyPressed
-        connect(evt);
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) connect();
     }//GEN-LAST:event_connectBtKeyPressed
 
     private void urlTfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_urlTfKeyPressed
-        connect(evt);
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) connect();
     }//GEN-LAST:event_urlTfKeyPressed
 
     private void userTfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userTfKeyPressed
-        connect(evt);
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) connect();
     }//GEN-LAST:event_userTfKeyPressed
 
     private void passwordPfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordPfKeyPressed
-        connect(evt);
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) connect();
     }//GEN-LAST:event_passwordPfKeyPressed
-
     
-    private void connect(){
-        try {
-            DatabaseController dbCtrl = new DatabaseController();            
-            dbCtrl.connect(
-                    urlTf.getText(), 
-                    userTf.getText(), 
-                    String.valueOf(passwordPf.getPassword())
-            );
-            
-            JOptionPane.showMessageDialog(null, "Conexão bem-sucedida!");
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(
+    private void connect(){                 
+        dbCtrl.connect(
+                urlTf.getText(), 
+                userTf.getText(), 
+                String.valueOf(passwordPf.getPassword())
+        );        
+    }
+    
+    public void showSuccessMsg(){
+        JOptionPane.showMessageDialog(null, "Conexão bem-sucedida!");
+    }
+    public void showErrorMsg(Exception e){        
+        JOptionPane.showMessageDialog(
                 null,
                 "Erro ao conectar ao banco de dados:\n" + e,
                 "Erro de Conexão",
                 JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
+        );
     }
-    private void connect(java.awt.event.KeyEvent evt){
-        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) connect();
-    }
-    
     
     
     public static void main(String args[]) {

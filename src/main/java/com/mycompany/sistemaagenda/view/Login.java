@@ -5,13 +5,17 @@ import com.mycompany.sistemaagenda.controller.LoginController;
 
 
 public final class Login extends javax.swing.JFrame {    
+    private LoginController lCtrl;
     
-    public Login() {        
+    public Login() {
         initComponents();
-        errorLb.setVisible(false);        
-        setLocationRelativeTo(null);       
+        errorLb.setVisible(false);
+        setLocationRelativeTo(null);        
     }   
 
+    public void setController(LoginController dbCtrl){
+        this.lCtrl = dbCtrl;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -172,15 +176,15 @@ public final class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signUpBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtActionPerformed
-        jCad();
+        signUp();
     }//GEN-LAST:event_signUpBtActionPerformed
 
     private void loginBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtActionPerformed
-        entrar();
+        login();
     }//GEN-LAST:event_loginBtActionPerformed
 
     private void signUpMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpMniActionPerformed
-        jCad();
+        signUp();
     }//GEN-LAST:event_signUpMniActionPerformed
 
     private void closeMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeMniActionPerformed
@@ -188,36 +192,29 @@ public final class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMniActionPerformed
 
     private void emailTfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailTfKeyPressed
-        entrar(evt);
+        login(evt);
     }//GEN-LAST:event_emailTfKeyPressed
 
     private void passwordPfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordPfKeyPressed
-        entrar(evt);
+        login(evt);
     }//GEN-LAST:event_passwordPfKeyPressed
 
     private void loginBtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_loginBtKeyPressed
-        entrar(evt);
+        login(evt);
     }//GEN-LAST:event_loginBtKeyPressed
 
     private void signUpBtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signUpBtKeyPressed
-        jCad(evt);
+        signUp(evt);
     }//GEN-LAST:event_signUpBtKeyPressed
 
     private void conMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conMniActionPerformed
-        jCon();
+        lCtrl.dbCon();
     }//GEN-LAST:event_conMniActionPerformed
 
-    public void entrar(){
+    public void login(){
         emailTf.setText(emailTf.getText().replaceAll("\\s+", ""));
-        try {
-            LoginController loginController = new LoginController();
-            if(loginController.login(emailTf.getText(), String.valueOf(passwordPf.getPassword()))){
-                passwordPf.setText("");
-                //logar (falta a lógica de isAdmin)
-            }else{
-                errorLb.setVisible(true);
-            }
-            
+        try {            
+            lCtrl.login(emailTf.getText(), String.valueOf(passwordPf.getPassword()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                 null,
@@ -227,23 +224,26 @@ public final class Login extends javax.swing.JFrame {
             );
         }
     }
-    public void entrar(java.awt.event.KeyEvent evt){
-        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) entrar();
+    public void login(java.awt.event.KeyEvent evt){
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) login();
     }
     
-    public void jCad(){
+    public void loginError(){
+        errorLb.setVisible(true);
+    }
+    public void loginSuccess(){
+        passwordPf.setText("");
+        errorLb.setVisible(false);
+    }
+    
+    public void signUp(){
         //setVisible(false);
         //rtErro.setVisible(false);
         //navegador.mostrarJCadastro();
     }
-    public void jCad(java.awt.event.KeyEvent evt){
-        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) jCad();
-    }
-    
-    public void jCon(){
-        dispose();
-        new DbConnection().setVisible(true);
-    }        
+    public void signUp(java.awt.event.KeyEvent evt){
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) signUp();
+    }   
     
         
     public static void main(String args[]) {
