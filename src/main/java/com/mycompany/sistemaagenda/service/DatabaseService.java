@@ -50,31 +50,36 @@ public class DatabaseService {
         );
     }
     
-    public void generate() throws SQLException, ClassNotFoundException{
+    public void generate() throws ClassNotFoundException, SQLException, FileNotFoundException{
         if(db==null) return;
         
-        Connection con = getConnection();
-        Statement st = con.createStatement();
-        File script = new File("./Agenda.mwb");
-        String linha = new String();
-        StringBuilder texto_string = new StringBuilder();
-        
-        try(Scanner leitor = new Scanner(script)){
-            while(leitor.hasNextLine()){
-                linha = leitor.nextLine();
-                texto_string.append(linha);
+        try(
+            Connection con = getConnection();
+            Statement st = con.createStatement();
+            Scanner scanner = new Scanner(new File("./Agenda.sql"))
+        ){
+
+            con.setAutoCommit(false);
+
+            try{
+                StringBuilder sb = new StringBuilder();
+
+                while(scanner.hasNextLine()){
+                    sb.append(scanner.nextLine()).append("\n");
+                }
+
+                String[] sts = sb.toString().split(";");
+                for(String exe : sts){
+                    if(!exe.trim().equals("")){
+                        st.executeUpdate(exe);
+                    }
+                }
+                con.commit();
+                
+            }catch(SQLException e){
+                con.rollback();
+                throw e;
             }
-            
-            String[] sts = texto_string.toString().split(";");
-            
-            for(String executavel : sts){
-                if(!executavel.trim().equals("")) st.executeUpdate(executavel);
-            }
-        } catch(FileNotFoundException fnfe){
-            System.out.println("Arquivo inexistente ou corrompido");
-        } finally{
-            st.close();
-            con.close();
         }
     }
 }
