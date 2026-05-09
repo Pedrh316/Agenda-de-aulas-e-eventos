@@ -165,7 +165,7 @@ public class DbConnection extends javax.swing.JFrame {
     }
     public void showErrorMsg(Exception e){        
         JOptionPane.showMessageDialog(
-                null,
+                this,
                 "Erro ao conectar ao banco de dados:\n" + e,
                 "Erro de Conexão",
                 JOptionPane.ERROR_MESSAGE

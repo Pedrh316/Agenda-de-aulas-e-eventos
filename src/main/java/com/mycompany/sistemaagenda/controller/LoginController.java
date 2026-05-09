@@ -1,10 +1,10 @@
 package com.mycompany.sistemaagenda.controller;
+
 import com.mycompany.sistemaagenda.model.User;
 import com.mycompany.sistemaagenda.navigation.Navigator;
 import com.mycompany.sistemaagenda.service.LoginService;
 import com.mycompany.sistemaagenda.view.Login;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class LoginController {
     private final Login loginWindow;
@@ -43,5 +43,9 @@ public class LoginController {
     
     public void dbCon(){
         nav.showDbCon();
+    }
+    
+    public void signUp(){
+        nav.showSignUp();
     }
 }

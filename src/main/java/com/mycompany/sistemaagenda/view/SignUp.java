@@ -250,7 +250,7 @@ public class SignUp extends javax.swing.JFrame {
     }
     public void showErrorMsg(String msg, String title){        
         JOptionPane.showMessageDialog(
-           null,
+           this,
            msg,
            title,
            JOptionPane.ERROR_MESSAGE
