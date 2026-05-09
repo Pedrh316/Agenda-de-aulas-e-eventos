@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema agenda
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema agenda
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `agenda` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`usuario`
+-- Table `agenda`.`usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`usuario` (
+CREATE TABLE IF NOT EXISTS `agenda`.`usuario` (
   `us_email` VARCHAR(100) NOT NULL,
   `us_nome` VARCHAR(100) NOT NULL,
   `us_senha` VARCHAR(45) NOT NULL,
@@ -28,9 +28,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`evento`
+-- Table `agenda`.`evento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`evento` (
+CREATE TABLE IF NOT EXISTS `agenda`.`evento` (
   `ev_data_hora` DATETIME NOT NULL,
   `ev_sala` INT NOT NULL,
   `ev_nome` VARCHAR(45) NOT NULL,
@@ -41,9 +41,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`usuario_evento`
+-- Table `agenda`.`usuario_evento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`usuario_evento` (
+CREATE TABLE IF NOT EXISTS `agenda`.`usuario_evento` (
   `us_email` VARCHAR(100) NOT NULL,
   `ev_data_hora` DATETIME NOT NULL,
   `ev_sala` INT NOT NULL,
@@ -67,3 +67,6 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT IGNORE INTO agenda.usuario (us_email, us_nome, us_senha, us_admin)
+VALUES ("admin@utfpr.com", "admin", "utfpr", TRUE);
