@@ -13,8 +13,8 @@ public final class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);        
     }   
 
-    public void setController(LoginController dbCtrl){
-        this.lCtrl = dbCtrl;
+    public void setController(LoginController lCtrl){
+        this.lCtrl = lCtrl;
     }
     
     @SuppressWarnings("unchecked")
@@ -176,7 +176,7 @@ public final class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signUpBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtActionPerformed
-        signUp();
+        lCtrl.signUp();
     }//GEN-LAST:event_signUpBtActionPerformed
 
     private void loginBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtActionPerformed
@@ -184,7 +184,7 @@ public final class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtActionPerformed
 
     private void signUpMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpMniActionPerformed
-        signUp();
+        lCtrl.signUp();
     }//GEN-LAST:event_signUpMniActionPerformed
 
     private void closeMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeMniActionPerformed
@@ -204,7 +204,7 @@ public final class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtKeyPressed
 
     private void signUpBtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signUpBtKeyPressed
-        signUp(evt);
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) lCtrl.signUp();
     }//GEN-LAST:event_signUpBtKeyPressed
 
     private void conMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conMniActionPerformed
@@ -212,20 +212,20 @@ public final class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_conMniActionPerformed
 
     public void login(){
-        emailTf.setText(emailTf.getText().replaceAll("\\s+", ""));
-        try {            
-            lCtrl.login(emailTf.getText(), String.valueOf(passwordPf.getPassword()));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(
-                null,
-                e.getMessage(),
-                "Erro",
-                JOptionPane.ERROR_MESSAGE
-            );
-        }
+        emailTf.setText(emailTf.getText().replaceAll("\\s+", ""));              
+        lCtrl.login(emailTf.getText(), String.valueOf(passwordPf.getPassword()));        
     }
     public void login(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) login();
+    }
+    
+    public void showErrorMsg(String msg, String title){        
+        JOptionPane.showMessageDialog(
+           this,
+           msg,
+           title,
+           JOptionPane.ERROR_MESSAGE
+        );
     }
     
     public void loginError(){
@@ -234,16 +234,7 @@ public final class Login extends javax.swing.JFrame {
     public void loginSuccess(){
         passwordPf.setText("");
         errorLb.setVisible(false);
-    }
-    
-    public void signUp(){
-        //setVisible(false);
-        //rtErro.setVisible(false);
-        //navegador.mostrarJCadastro();
-    }
-    public void signUp(java.awt.event.KeyEvent evt){
-        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) signUp();
-    }   
+    }      
     
         
     public static void main(String args[]) {

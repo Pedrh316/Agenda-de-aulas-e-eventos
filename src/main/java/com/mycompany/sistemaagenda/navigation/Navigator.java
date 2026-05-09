@@ -2,12 +2,14 @@ package com.mycompany.sistemaagenda.navigation;
 
 import com.mycompany.sistemaagenda.controller.DatabaseController;
 import com.mycompany.sistemaagenda.controller.LoginController;
+import com.mycompany.sistemaagenda.controller.SignUpController;
 import com.mycompany.sistemaagenda.view.*;
 
 
 public class Navigator {    
     private DbConnection dbConWindow;
     private Login loginWindow;
+    private SignUp signUpWindow;
     private Admin adminWindow;
     
     public Navigator(){}
@@ -28,6 +30,18 @@ public class Navigator {
         }
         if(dbConWindow!=null) dbConWindow.setVisible(false);
         loginWindow.setVisible(true);
+    }
+    
+    public void showSignUp(){        
+        if(signUpWindow==null){
+            signUpWindow = new SignUp();
+            signUpWindow.setController(new SignUpController(signUpWindow, this));
+        }       
+        signUpWindow.setVisible(true);
+    }
+    
+    public void closeSignUp(){
+        if(signUpWindow!=null) signUpWindow.setVisible(false);
     }
     
     public void adminLogin(){

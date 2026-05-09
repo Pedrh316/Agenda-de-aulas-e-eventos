@@ -15,4 +15,10 @@ public class LoginService {
         if(user.getPassword().equals(password)) return user;
         else return null;
     }
+    
+    public void signUp(User user) throws Exception{
+        UserDAO userDAO = new UserDAO();
+        
+        userDAO.createUser(user);
+    }
 }
