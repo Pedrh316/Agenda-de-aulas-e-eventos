@@ -24,11 +24,6 @@ A primeira tela apresentada é utilizada para conectar-se ao banco. Para preench
 * Cole a URL copiada na caixa de texto da tela inicial do sistema;
 * Após preencher os demais campos, clique em "Confirmar" para criar o banco.
 
-Após criar o banco pela primeira vez, é necessário retornar à tela de conexão e especificá-lo na URL. Seguem dois exemplos de como a URL pode ficar:
-
-* `jdbc:mysql://localhost:3306/agenda`
-* `jdbc:mysql://127.0.0.1:3306/agenda`
-
 Também é possível especificar as credenciais de conexão em um arquivo, a fim de não precisar reescrevê-las ao reiniciar o sistema. Para isso:
 
 * Crie uma cópia do arquivo `database.example.properties` na pasta `config`;
