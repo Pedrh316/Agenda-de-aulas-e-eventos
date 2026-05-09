@@ -28,10 +28,12 @@ public class EditEventDialog extends javax.swing.JFrame {
     
     private Event event = new Event();
     private Admin admin = new Admin();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     
     public EditEventDialog(Admin admin, Event event){
         this.event = event;
         this.admin = admin;
+        loadData();
     }
 
     /**
@@ -199,6 +201,13 @@ public class EditEventDialog extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_eventNameTfActionPerformed
 
+    public void loadData(){
+        eventNameTf.setText(event.getName());
+        eventSpeakerTf.setText(event.getSpeaker());
+        eventRoomTf.setText(Integer.toString(event.getRoom()));
+        eventFeeTf.setText(Integer.toString(event.getFee()));
+        eventDateFtf.setText(event.getDate().format(formatter));
+    }
     
     public void saveEdit(){
         String name = eventNameTf.getText();
@@ -217,9 +226,7 @@ public class EditEventDialog extends javax.swing.JFrame {
         if(name.isEmpty() || speaker.isEmpty() || roomText.isEmpty() || feeText.isEmpty()){
             JOptionPane.showMessageDialog(this, "Nenhum dos campos podem ser vazios.");
             return;
-        }
-        DateTimeFormatter formatter =
-        DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        }        
         LocalDateTime date = LocalDateTime.parse(eventDateFtf.getText(), formatter);
         Event updtEvent = new Event(date, room, name, speaker, fee);
         EventDAO eventDAO = new EventDAO();
