@@ -34,7 +34,7 @@ public class EventosDisponiveis extends javax.swing.JFrame {
         opcoes_menu = new javax.swing.JMenu();
         voltar_menuItem = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         eventosDisponiveis_texto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         eventosDisponiveis_texto.setText("Eventos Dispoíveis");
@@ -94,8 +94,8 @@ public class EventosDisponiveis extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void voltar_menuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_menuItemActionPerformed
-        CommonUser user = new CommonUser();
-        user.setVisible(true);
+        //CommonUser user = new CommonUser();
+        //user.setVisible(true);
         dispose();
     }//GEN-LAST:event_voltar_menuItemActionPerformed
 

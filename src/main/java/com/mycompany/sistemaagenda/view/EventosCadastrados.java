@@ -34,7 +34,7 @@ public class EventosCadastrados extends javax.swing.JFrame {
         opcoes_menu = new javax.swing.JMenu();
         voltar_menu = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tabelaCadastrados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,8 +93,8 @@ public class EventosCadastrados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void voltar_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_menuActionPerformed
-        CommonUser user = new CommonUser();
-        user.setVisible(true);
+        //CommonUser user = new CommonUser();
+        //user.setVisible(true);
         dispose();
     }//GEN-LAST:event_voltar_menuActionPerformed
 

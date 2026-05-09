@@ -119,14 +119,14 @@ public class CommonUser extends javax.swing.JFrame {
         EventosDisponiveis eventosDisponiveis = new EventosDisponiveis();
         //eventosDisponiveis.preencherTabela(); -> ainda em andamento
         eventosDisponiveis.setVisible(true);
-        dispose();
+        //dispose();
     }//GEN-LAST:event_eventosDisponiveis_botaoActionPerformed
 
     private void eventosCadastrados_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventosCadastrados_botaoActionPerformed
         EventosCadastrados eventosCadastrados = new EventosCadastrados();
         //eventosCadastrados.preencherTabela(); -> ainda em andamento
         eventosCadastrados.setVisible(true);
-        dispose();
+        //dispose();
     }//GEN-LAST:event_eventosCadastrados_botaoActionPerformed
 
     private void sair_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sair_botaoActionPerformed
@@ -137,14 +137,14 @@ public class CommonUser extends javax.swing.JFrame {
         EventosDisponiveis eventosDisponiveis = new EventosDisponiveis();
         //eventosDisponiveis.preencherTabela(); -> ainda em andamento
         eventosDisponiveis.setVisible(true);
-        dispose();
+        //dispose();
     }//GEN-LAST:event_eventosDisponiveis_menuItemActionPerformed
 
     private void eventosCadastrados_menuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventosCadastrados_menuItemActionPerformed
         EventosCadastrados eventosCadastrados = new EventosCadastrados();
         //eventosCadastrados.preencherTabela(); -> ainda em andamento
         eventosCadastrados.setVisible(true);
-        dispose();
+        //dispose();
     }//GEN-LAST:event_eventosCadastrados_menuItemActionPerformed
     
     /**
