@@ -4,6 +4,7 @@ import com.mycompany.sistemaagenda.model.User;
 import com.mycompany.sistemaagenda.navigation.Navigator;
 import com.mycompany.sistemaagenda.service.LoginService;
 import com.mycompany.sistemaagenda.view.SignUp;
+import exceptions.WindowNotExistsException;
 
 
 public class SignUpController {
@@ -39,6 +40,10 @@ public class SignUpController {
     }
     
     public void goBack(){
-        nav.closeSignUp();
+        try{
+            nav.closeSignUp();
+        } catch(WindowNotExistsException wnee){
+            
+        }
     }
 }
