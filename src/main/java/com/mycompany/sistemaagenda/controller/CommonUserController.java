@@ -23,9 +23,9 @@ public class CommonUserController {
     }
     
     public void sair(){
-        nav.userLogout();
-        dbCtrl.setActiveUser(null);
         nav.showLogin();
+        nav.userLogout();
+        dbCtrl.setActiveUser(null);       
     }
     
     public DatabaseController getDatabaseController(){
