@@ -24,6 +24,7 @@ public class EditEventDialog extends javax.swing.JFrame {
      */
     public EditEventDialog() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     private Event event = new Event();

@@ -37,6 +37,7 @@ public class Admin extends javax.swing.JFrame {
         events = loadEvents();
         loadUsersOnTable();
         loadEventsOnTable();
+        setLocationRelativeTo(null);
     }
 
     /**

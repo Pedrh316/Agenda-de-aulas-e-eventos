@@ -15,6 +15,7 @@ public class EventosDisponiveis extends javax.swing.JFrame {
      */
     public EventosDisponiveis() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

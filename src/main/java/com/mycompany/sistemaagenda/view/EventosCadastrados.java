@@ -15,6 +15,7 @@ public class EventosCadastrados extends javax.swing.JFrame {
      */
     public EventosCadastrados() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

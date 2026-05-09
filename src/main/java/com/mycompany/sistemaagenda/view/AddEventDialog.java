@@ -24,6 +24,7 @@ public class AddEventDialog extends javax.swing.JFrame {
      */
     public AddEventDialog() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     @SuppressWarnings("unchecked")

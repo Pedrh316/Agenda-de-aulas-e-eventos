@@ -17,6 +17,7 @@ public class CommonUser extends javax.swing.JFrame {
      */
     public CommonUser() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     public void setController(CommonUserController ctrl){
