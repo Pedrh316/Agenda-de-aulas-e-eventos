@@ -212,20 +212,20 @@ public final class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_conMniActionPerformed
 
     public void login(){
-        emailTf.setText(emailTf.getText().replaceAll("\\s+", ""));
-        try {            
-            lCtrl.login(emailTf.getText(), String.valueOf(passwordPf.getPassword()));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(
-                null,
-                e.getMessage(),
-                "Erro",
-                JOptionPane.ERROR_MESSAGE
-            );
-        }
+        emailTf.setText(emailTf.getText().replaceAll("\\s+", ""));              
+        lCtrl.login(emailTf.getText(), String.valueOf(passwordPf.getPassword()));        
     }
     public void login(java.awt.event.KeyEvent evt){
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) login();
+    }
+    
+    public void showErrorMsg(String msg, String title){        
+        JOptionPane.showMessageDialog(
+           this,
+           msg,
+           title,
+           JOptionPane.ERROR_MESSAGE
+        );
     }
     
     public void loginError(){
