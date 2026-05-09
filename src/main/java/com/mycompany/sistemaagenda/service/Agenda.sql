@@ -53,12 +53,12 @@ CREATE TABLE IF NOT EXISTS `agenda`.`usuario_evento` (
   INDEX `fk_usuario_has_evento_usuario_idx` (`us_email` ASC) VISIBLE,
   CONSTRAINT `fk_usuario_has_evento_usuario`
     FOREIGN KEY (`us_email`)
-    REFERENCES `mydb`.`usuario` (`us_email`)
+    REFERENCES `agenda`.`usuario` (`us_email`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_has_evento_evento1`
     FOREIGN KEY (`ev_data_hora` , `ev_sala`)
-    REFERENCES `mydb`.`evento` (`ev_data_hora` , `ev_sala`)
+    REFERENCES `agenda`.`evento` (`ev_data_hora` , `ev_sala`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
