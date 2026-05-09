@@ -22,7 +22,11 @@ public class DatabaseService {
         return instance;
     }
     
-    public Database connect() throws Exception {
+    public Database getDb(){
+        return db;
+    }
+    
+    public void connect() throws Exception {
         Properties props = new Properties();
                 
         props.load(new FileInputStream("config/database.properties"));
@@ -31,8 +35,7 @@ public class DatabaseService {
                 props.getProperty("url"),
                 props.getProperty("user"),
                 props.getProperty("password")
-        );
-        return db;
+        );        
     }
     
     public void connect(String url, String user, String password) throws ClassNotFoundException, SQLException {

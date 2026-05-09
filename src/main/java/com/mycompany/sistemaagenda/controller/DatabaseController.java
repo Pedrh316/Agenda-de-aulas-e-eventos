@@ -16,12 +16,17 @@ public class DatabaseController {
     public DatabaseController(DbConnection dbConWindow, Navigator nav) {        
         this.dbConWindow = dbConWindow;
         this.nav = nav;
+        
         dbServ = DatabaseService.getInstance();
+        Database db = dbServ.getDb();
+        if(db!=null && dbConWindow!=null){
+            dbConWindow.setDb(db.getUrl(), db.getUser(), db.getPassword());
+        }
     }
     
     public void connect() {
         try {            
-            Database db = dbServ.connect();
+            dbServ.connect();
             dbServ.generate();
             nav.showDbCon();
             nav.showLogin();

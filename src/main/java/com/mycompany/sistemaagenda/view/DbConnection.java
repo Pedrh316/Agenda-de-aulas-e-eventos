@@ -9,7 +9,7 @@ public class DbConnection extends javax.swing.JFrame {
     
     public DbConnection() {        
         initComponents();
-        setLocationRelativeTo(null);        
+        setLocationRelativeTo(null);
     }
     
     public void setController(DatabaseController dbCtrl){
@@ -158,6 +158,12 @@ public class DbConnection extends javax.swing.JFrame {
                 userTf.getText(), 
                 String.valueOf(passwordPf.getPassword())
         );        
+    }
+    
+    public void setDb(String url, String user, String password){
+        urlTf.setText(url);
+        userTf.setText(user);
+        passwordPf.setText(password);
     }
     
     public void showSuccessMsg(){
