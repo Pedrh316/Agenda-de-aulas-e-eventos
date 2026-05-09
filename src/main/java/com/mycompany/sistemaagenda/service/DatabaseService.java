@@ -56,7 +56,7 @@ public class DatabaseService {
         try(
             Connection con = getConnection();
             Statement st = con.createStatement();
-            Scanner scanner = new Scanner(new File("./Agenda.sql"))
+            Scanner scanner = new Scanner(new File("src/main/java/com/mycompany/sistemaagenda/service/Agenda.sql"))
         ){
 
             con.setAutoCommit(false);

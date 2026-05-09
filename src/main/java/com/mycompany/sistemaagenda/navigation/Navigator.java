@@ -4,6 +4,7 @@ import com.mycompany.sistemaagenda.controller.DatabaseController;
 import com.mycompany.sistemaagenda.controller.LoginController;
 import com.mycompany.sistemaagenda.controller.SignUpController;
 import com.mycompany.sistemaagenda.view.*;
+import exceptions.WindowNotExistsException;
 
 
 public class Navigator {    
@@ -40,8 +41,21 @@ public class Navigator {
         signUpWindow.setVisible(true);
     }
     
-    public void closeSignUp(){
+    
+    
+    public void closeSignUp() throws WindowNotExistsException{
         if(signUpWindow!=null) signUpWindow.setVisible(false);
+        else throw new WindowNotExistsException();
+    }
+    
+    public void closeLogin() throws WindowNotExistsException{
+        if(loginWindow != null) loginWindow.setVisible(false);
+        else throw new WindowNotExistsException();
+    }
+    
+    public void closeDbCon() throws WindowNotExistsException{
+        if(dbConWindow != null) dbConWindow.setVisible(false);
+        else throw new WindowNotExistsException();
     }
     
     public void adminLogin(){
