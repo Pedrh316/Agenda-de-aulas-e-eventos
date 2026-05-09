@@ -16,7 +16,7 @@ public class EventDAO {
     }
     
     public void createEvent(Event event) throws SQLException, ClassNotFoundException{
-        String sql = "INSERT INTO evento VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO agenda.evento VALUES (?, ?, ?, ?, ?)";
         
         try(Connection con = dbServ.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)){
@@ -32,7 +32,7 @@ public class EventDAO {
     }
     
     public Event readEvent(LocalDateTime date, int room) throws SQLException, ClassNotFoundException{
-        String sql = "SELECT * FROM evento WHERE ev_data_hora = ? AND ev_sala = ?";
+        String sql = "SELECT * FROM agenda.evento WHERE ev_data_hora = ? AND ev_sala = ?";
         
         try(Connection con = dbServ.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)){
@@ -56,7 +56,7 @@ public class EventDAO {
     }
     
     public List<Event> readEvents() throws SQLException, ClassNotFoundException{
-        String sql = "SELECT * FROM evento";
+        String sql = "SELECT * FROM agenda.evento";
         List<Event> list = new LinkedList<>();
         
         try(
@@ -78,7 +78,7 @@ public class EventDAO {
     }
     
     public int updateEvent(Event event, Event updtEvent) throws SQLException, ClassNotFoundException{
-        String sql = "UPDATE evento SET ev_data_hora = ?,"
+        String sql = "UPDATE agenda.evento SET ev_data_hora = ?,"
                 + "ev_sala = ?,"
                 + "ev_nome = ?,"
                 + "ev_palestrante = ?,"
@@ -102,7 +102,7 @@ public class EventDAO {
     }
     
     public int deleteEvent(Event event) throws SQLException, ClassNotFoundException{
-        String sql = "DELETE FROM evento WHERE ev_data_hora = ? AND ev_sala = ?";
+        String sql = "DELETE FROM agenda.evento WHERE ev_data_hora = ? AND ev_sala = ?";
         
         try(Connection con = dbServ.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)){
