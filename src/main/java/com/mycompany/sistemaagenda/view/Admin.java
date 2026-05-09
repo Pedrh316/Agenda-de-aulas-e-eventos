@@ -49,13 +49,14 @@ public class Admin extends javax.swing.JFrame {
     private void initComponents() {
 
         addEventBt = new javax.swing.JButton();
-        deleteUserBr = new javax.swing.JButton();
+        deleteUserBt = new javax.swing.JButton();
         editEventBt = new javax.swing.JButton();
         userSp = new javax.swing.JScrollPane();
         userTb = new javax.swing.JTable();
         eventSp = new javax.swing.JScrollPane();
         eventTb = new javax.swing.JTable();
         loadParticipantsBt = new javax.swing.JButton();
+        deleteEventBt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin");
@@ -68,9 +69,9 @@ public class Admin extends javax.swing.JFrame {
         addEventBt.setPreferredSize(new java.awt.Dimension(161, 49));
         addEventBt.addActionListener(this::addEventBtActionPerformed);
 
-        deleteUserBr.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        deleteUserBr.setText("Excluir Usuário");
-        deleteUserBr.addActionListener(this::deleteUserBrActionPerformed);
+        deleteUserBt.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        deleteUserBt.setText("Excluir Usuário");
+        deleteUserBt.addActionListener(this::deleteUserBtActionPerformed);
 
         editEventBt.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         editEventBt.setText("Editar Evento");
@@ -116,17 +117,22 @@ public class Admin extends javax.swing.JFrame {
         loadParticipantsBt.setText("Ver Participantes");
         loadParticipantsBt.addActionListener(this::loadParticipantsBtActionPerformed);
 
+        deleteEventBt.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        deleteEventBt.setText("Excluir Evento");
+        deleteEventBt.addActionListener(this::deleteEventBtActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addEventBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteUserBr)
-                    .addComponent(loadParticipantsBt)
-                    .addComponent(editEventBt))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addEventBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deleteUserBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(loadParticipantsBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(editEventBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deleteEventBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(eventSp, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -134,7 +140,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(82, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addEventBt, deleteUserBr, editEventBt, loadParticipantsBt});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addEventBt, deleteUserBt, editEventBt, loadParticipantsBt});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,11 +156,13 @@ public class Admin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(loadParticipantsBt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(deleteUserBr)))
+                        .addComponent(deleteUserBt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deleteEventBt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {addEventBt, deleteUserBr, editEventBt, loadParticipantsBt});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {addEventBt, deleteEventBt, deleteUserBt, editEventBt, loadParticipantsBt});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -163,9 +171,9 @@ public class Admin extends javax.swing.JFrame {
         addEvent();
     }//GEN-LAST:event_addEventBtActionPerformed
 
-    private void deleteUserBrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBrActionPerformed
+    private void deleteUserBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBtActionPerformed
         deleteUser();
-    }//GEN-LAST:event_deleteUserBrActionPerformed
+    }//GEN-LAST:event_deleteUserBtActionPerformed
 
     private void loadParticipantsBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadParticipantsBtActionPerformed
         loadParticipants();
@@ -185,6 +193,10 @@ public class Admin extends javax.swing.JFrame {
         selectedEvent = events.get(linha);
     }//GEN-LAST:event_eventTbMouseClicked
 
+    private void deleteEventBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEventBtActionPerformed
+        deleteEvent();
+    }//GEN-LAST:event_deleteEventBtActionPerformed
+
     private void addEvent(){
         AddEventDialog view = new AddEventDialog();
         view.setVisible(true);
@@ -203,6 +215,19 @@ public class Admin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Não foi possível excluir o usuário selecionado");
         }
     }
+    private void deleteEvent(){
+        if(selectedEvent != null){
+            EventDAO eventDAO = new EventDAO();
+            try{
+                eventDAO.deleteEvent(selectedEvent);
+                events = loadEvents();
+                loadEventsOnTable();
+            } catch (SQLException | ClassNotFoundException e){
+                JOptionPane.showMessageDialog(this, "Não foi possível excluir o usuário selecionado");
+            }
+        }
+    }
+    
     private void loadParticipants(){
         
     }
@@ -264,7 +289,8 @@ public class Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addEventBt;
-    private javax.swing.JButton deleteUserBr;
+    private javax.swing.JButton deleteEventBt;
+    private javax.swing.JButton deleteUserBt;
     private javax.swing.JButton editEventBt;
     private javax.swing.JScrollPane eventSp;
     private javax.swing.JTable eventTb;
