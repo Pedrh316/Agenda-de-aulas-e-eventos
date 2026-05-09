@@ -31,53 +31,120 @@ public class CommonUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        rtUser = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        mnItemSair = new javax.swing.JMenuItem();
-        mnItemEventos = new javax.swing.JMenuItem();
+        eventosDisponiveis_botao = new javax.swing.JButton();
+        eventosCadastrados_botao = new javax.swing.JButton();
+        sair_botao = new javax.swing.JButton();
+        ola_texto = new javax.swing.JLabel();
+        barraMenu = new javax.swing.JMenuBar();
+        opcoes_menu = new javax.swing.JMenu();
+        eventosDisponiveis_menuItem = new javax.swing.JMenuItem();
+        eventosCadastrados_menuItem = new javax.swing.JMenuItem();
+        sair_menuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        rtUser.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
-        rtUser.setText("Bem vindo");
+        eventosDisponiveis_botao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eventosDisponiveis_botao.setText("Eventos Disponíveis");
+        eventosDisponiveis_botao.addActionListener(this::eventosDisponiveis_botaoActionPerformed);
 
-        jMenu1.setText("Opções");
+        eventosCadastrados_botao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eventosCadastrados_botao.setText("Eventos Cadastrados");
+        eventosCadastrados_botao.addActionListener(this::eventosCadastrados_botaoActionPerformed);
 
-        mnItemSair.setText("Sair");
-        mnItemSair.addActionListener(this::mnItemSairActionPerformed);
-        jMenu1.add(mnItemSair);
+        sair_botao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        sair_botao.setText("Sair");
+        sair_botao.addActionListener(this::sair_botaoActionPerformed);
 
-        mnItemEventos.setText("Eventos");
-        jMenu1.add(mnItemEventos);
+        ola_texto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ola_texto.setText("Olá,");
 
-        jMenuBar1.add(jMenu1);
+        opcoes_menu.setText("Opções");
 
-        setJMenuBar(jMenuBar1);
+        eventosDisponiveis_menuItem.setText("Eventos Disponíveis");
+        eventosDisponiveis_menuItem.addActionListener(this::eventosDisponiveis_menuItemActionPerformed);
+        opcoes_menu.add(eventosDisponiveis_menuItem);
+
+        eventosCadastrados_menuItem.setText("Eventos Cadastrados");
+        eventosCadastrados_menuItem.addActionListener(this::eventosCadastrados_menuItemActionPerformed);
+        opcoes_menu.add(eventosCadastrados_menuItem);
+
+        sair_menuItem.setText("Sair");
+        sair_menuItem.addActionListener(this::sair_menuItemActionPerformed);
+        opcoes_menu.add(sair_menuItem);
+
+        barraMenu.add(opcoes_menu);
+
+        setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(238, Short.MAX_VALUE)
-                .addComponent(rtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(sair_botao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(eventosCadastrados_botao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(eventosDisponiveis_botao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(ola_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(207, Short.MAX_VALUE)
-                .addComponent(rtUser)
-                .addGap(198, 198, 198))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ola_texto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(eventosDisponiveis_botao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(eventosCadastrados_botao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(sair_botao)
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mnItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemSairActionPerformed
+    private void sair_menuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sair_menuItemActionPerformed
         ctrl.sair();
-    }//GEN-LAST:event_mnItemSairActionPerformed
+    }//GEN-LAST:event_sair_menuItemActionPerformed
+
+    private void eventosDisponiveis_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventosDisponiveis_botaoActionPerformed
+        EventosDisponiveis eventosDisponiveis = new EventosDisponiveis();
+        //eventosDisponiveis.preencherTabela(); -> ainda em andamento
+        eventosDisponiveis.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_eventosDisponiveis_botaoActionPerformed
+
+    private void eventosCadastrados_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventosCadastrados_botaoActionPerformed
+        EventosCadastrados eventosCadastrados = new EventosCadastrados();
+        //eventosCadastrados.preencherTabela(); -> ainda em andamento
+        eventosCadastrados.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_eventosCadastrados_botaoActionPerformed
+
+    private void sair_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sair_botaoActionPerformed
+        ctrl.sair();
+    }//GEN-LAST:event_sair_botaoActionPerformed
+
+    private void eventosDisponiveis_menuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventosDisponiveis_menuItemActionPerformed
+        EventosDisponiveis eventosDisponiveis = new EventosDisponiveis();
+        //eventosDisponiveis.preencherTabela(); -> ainda em andamento
+        eventosDisponiveis.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_eventosDisponiveis_menuItemActionPerformed
+
+    private void eventosCadastrados_menuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventosCadastrados_menuItemActionPerformed
+        EventosCadastrados eventosCadastrados = new EventosCadastrados();
+        //eventosCadastrados.preencherTabela(); -> ainda em andamento
+        eventosCadastrados.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_eventosCadastrados_menuItemActionPerformed
     
     /**
      * @param args the command line arguments
@@ -105,10 +172,14 @@ public class CommonUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem mnItemEventos;
-    private javax.swing.JMenuItem mnItemSair;
-    private javax.swing.JLabel rtUser;
+    private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JButton eventosCadastrados_botao;
+    private javax.swing.JMenuItem eventosCadastrados_menuItem;
+    private javax.swing.JButton eventosDisponiveis_botao;
+    private javax.swing.JMenuItem eventosDisponiveis_menuItem;
+    private javax.swing.JLabel ola_texto;
+    private javax.swing.JMenu opcoes_menu;
+    private javax.swing.JButton sair_botao;
+    private javax.swing.JMenuItem sair_menuItem;
     // End of variables declaration//GEN-END:variables
 }
