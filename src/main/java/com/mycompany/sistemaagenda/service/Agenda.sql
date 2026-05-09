@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `agenda`.`usuario` (
   `us_nome` VARCHAR(45) NOT NULL,
   `us_senha` VARCHAR(100) NOT NULL,  
   `us_admin` TINYINT NOT NULL,
-  PRIMARY KEY (`us_email`)
+  PRIMARY KEY (`us_email`))
 ENGINE = InnoDB;
 
 
