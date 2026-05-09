@@ -21,7 +21,7 @@ public class DatabaseController {
     
     public void connect() {
         try {            
-            //Database db = dbServ.connect();
+            Database db = dbServ.connect();
             dbServ.generate();
             nav.showDbCon();
             nav.showLogin();
