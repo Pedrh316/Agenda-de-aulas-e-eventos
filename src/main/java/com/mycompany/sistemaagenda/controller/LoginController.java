@@ -9,10 +9,12 @@ import com.mycompany.sistemaagenda.view.Login;
 public class LoginController {
     private final Login loginWindow;
     private final Navigator nav;
+    private final DatabaseController dbCtrl;
     
-    public LoginController(Login loginWindow, Navigator nav){
+    public LoginController(Login loginWindow, Navigator nav, DatabaseController dbCtrl){
         this.loginWindow = loginWindow;
         this.nav = nav;
+        this.dbCtrl = dbCtrl;
     }
     
     public void login(String email, String password){
@@ -30,10 +32,12 @@ public class LoginController {
                 loginWindow.loginError();
             }else{
                 loginWindow.loginSuccess();
+                dbCtrl.setActiveUser(user);
+                nav.closeLogin();
                 if(user.isAdmin()){
                     nav.adminLogin();
                 }else{
-                    //nav.userLogin();
+                    nav.userLogin();
                 }
             }
         } catch (Exception ex) {

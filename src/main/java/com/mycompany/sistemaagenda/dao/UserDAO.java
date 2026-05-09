@@ -15,7 +15,7 @@ public class UserDAO {
     }
     
     public void createUser(User user) throws SQLException, ClassNotFoundException{
-        String sql = "INSERT INTO usuario VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO agenda.usuario VALUES (?, ?, ?, ?)";
         
         try(Connection con = dbServ.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)){
@@ -30,7 +30,7 @@ public class UserDAO {
     }
     
     public User readUser(String email) throws SQLException, ClassNotFoundException{
-        String sql = "SELECT * FROM usuario WHERE us_email = ?";
+        String sql = "SELECT * FROM agenda.usuario WHERE us_email = ?";
         
         try(Connection con = dbServ.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)){
@@ -52,7 +52,7 @@ public class UserDAO {
     }
     
     public List<User> readUsers() throws SQLException, ClassNotFoundException{
-        String sql = "SELECT * FROM usuario";
+        String sql = "SELECT * FROM agenda.usuario";
         List<User> list = new LinkedList<>();
         
         try(
@@ -73,7 +73,7 @@ public class UserDAO {
     }
     
     public int updateUser(User user) throws SQLException, ClassNotFoundException{
-        String sql = "UPDATE usuario SET us_nome = ?,"
+        String sql = "UPDATE agenda.usuario SET us_nome = ?,"
                 + "us_senha = ?,"
                 + "us_admin = ?"
                 + " WHERE us_email = ?";
@@ -91,7 +91,7 @@ public class UserDAO {
     }
     
     public int deleteUser(User user) throws SQLException, ClassNotFoundException{
-        String sql = "DELETE FROM usuario WHERE us_email = ?";
+        String sql = "DELETE FROM agenda.usuario WHERE us_email = ?";
         
         try(Connection con = dbServ.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)){

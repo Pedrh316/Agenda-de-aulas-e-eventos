@@ -35,6 +35,7 @@ public class CommonUser extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnItemSair = new javax.swing.JMenuItem();
+        mnItemEventos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +47,9 @@ public class CommonUser extends javax.swing.JFrame {
         mnItemSair.setText("Sair");
         mnItemSair.addActionListener(this::mnItemSairActionPerformed);
         jMenu1.add(mnItemSair);
+
+        mnItemEventos.setText("Eventos");
+        jMenu1.add(mnItemEventos);
 
         jMenuBar1.add(jMenu1);
 
@@ -103,6 +107,7 @@ public class CommonUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem mnItemEventos;
     private javax.swing.JMenuItem mnItemSair;
     private javax.swing.JLabel rtUser;
     // End of variables declaration//GEN-END:variables

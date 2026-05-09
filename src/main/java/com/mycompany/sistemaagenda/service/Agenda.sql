@@ -19,8 +19,8 @@ USE `mydb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `agenda`.`usuario` (
   `us_email` VARCHAR(100) NOT NULL,
-  `us_nome` VARCHAR(100) NOT NULL,
-  `us_senha` VARCHAR(45) NOT NULL,
+  `us_senha` VARCHAR(100) NOT NULL,
+  `us_nome` VARCHAR(45) NOT NULL,
   `us_admin` TINYINT NOT NULL,
   PRIMARY KEY (`us_email`),
   UNIQUE INDEX `us_senha_UNIQUE` (`us_senha` ASC) VISIBLE)
@@ -68,5 +68,5 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-INSERT IGNORE INTO agenda.usuario (us_email, us_nome, us_senha, us_admin)
+INSERT IGNORE INTO agenda.usuario (us_email, us_senha, us_nome, us_admin)
 VALUES ("admin@utfpr.com", "admin", "utfpr", TRUE);
