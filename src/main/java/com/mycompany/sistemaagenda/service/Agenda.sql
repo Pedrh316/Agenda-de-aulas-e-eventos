@@ -12,7 +12,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema agenda
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `agenda` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+USE `agenda` ;
 
 -- -----------------------------------------------------
 -- Table `agenda`.`usuario`
