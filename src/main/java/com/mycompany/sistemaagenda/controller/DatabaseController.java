@@ -1,5 +1,6 @@
 package com.mycompany.sistemaagenda.controller;
 
+import com.mycompany.sistemaagenda.model.Database;
 import com.mycompany.sistemaagenda.model.User;
 import com.mycompany.sistemaagenda.navigation.Navigator;
 import com.mycompany.sistemaagenda.service.DatabaseService;
@@ -20,10 +21,11 @@ public class DatabaseController {
     
     public void connect() {
         try {            
-            dbServ.connect();
+            //Database db = dbServ.connect();
             dbServ.generate();
-            nav.showLogin();            
-        } catch (Exception e) {            
+            nav.showDbCon();
+            nav.showLogin();
+        } catch (Exception e) {
             nav.showDbCon();
         }
     }
