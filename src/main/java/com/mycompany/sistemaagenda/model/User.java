@@ -3,21 +3,21 @@ package com.mycompany.sistemaagenda.model;
 
 public class User {
     private String email;
-    private String password;
     private String name;
+    private String password;    
     private boolean admin;
 
     public User() {
         email = "";
-        password = "";
         name = "";
+        password = "";        
         admin = false;
     }
     
-    public User(String email, String password, String name, boolean admin) {
+    public User(String email, String name, String password, boolean admin) {
         this.email = email;
-        this.password = password;
         this.name = name;
+        this.password = password;        
         this.admin = admin;
     }
 
@@ -25,13 +25,13 @@ public class User {
         return email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getName() {
         return name;
     }
+    
+    public String getPassword() {
+        return password;
+    }   
 
     public boolean isAdmin() {
         return admin;
@@ -41,13 +41,13 @@ public class User {
         this.email = email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }   
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
