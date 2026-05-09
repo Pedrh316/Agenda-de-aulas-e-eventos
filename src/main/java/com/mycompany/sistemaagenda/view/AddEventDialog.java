@@ -44,7 +44,7 @@ public class AddEventDialog extends javax.swing.JFrame {
         eventFeeTf = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Editar Evento");
+        setTitle("Adicionar Evento");
 
         eventDateLabel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         eventDateLabel.setText("Data e hora");
@@ -64,6 +64,7 @@ public class AddEventDialog extends javax.swing.JFrame {
         eventNameLabel.setText("Nome");
 
         eventSpeakerTf.setPreferredSize(new java.awt.Dimension(64, 26));
+        eventSpeakerTf.addActionListener(this::eventSpeakerTfActionPerformed);
 
         eventRoomLabel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         eventRoomLabel.setText("Sala");
@@ -179,6 +180,10 @@ public class AddEventDialog extends javax.swing.JFrame {
     private void cancelEditBtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cancelEditBtKeyPressed
         dispose();
     }//GEN-LAST:event_cancelEditBtKeyPressed
+
+    private void eventSpeakerTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventSpeakerTfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eventSpeakerTfActionPerformed
 
     
     public void addEvent(){

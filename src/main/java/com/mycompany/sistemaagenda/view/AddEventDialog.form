@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Editar Evento"/>
+    <Property name="title" type="java.lang.String" value="Adicionar Evento"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -153,6 +153,9 @@
           <Dimension value="[64, 26]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eventSpeakerTfActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="eventRoomLabel">
       <Properties>
