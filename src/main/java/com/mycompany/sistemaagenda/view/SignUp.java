@@ -35,7 +35,6 @@ public class SignUp extends javax.swing.JFrame {
         confirmBt = new javax.swing.JButton();
         titleLb = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro");
 
         emailLb.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
