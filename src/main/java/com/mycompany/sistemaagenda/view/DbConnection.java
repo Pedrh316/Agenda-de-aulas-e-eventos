@@ -188,6 +188,10 @@ public class DbConnection extends javax.swing.JFrame {
             }
         });
     }
+    
+    public DatabaseController getController(){
+        return dbCtrl;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connectBt;

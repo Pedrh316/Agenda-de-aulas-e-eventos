@@ -2,6 +2,7 @@ package com.mycompany.sistemaagenda.service;
 
 import com.mycompany.sistemaagenda.dao.UserDAO;
 import com.mycompany.sistemaagenda.model.User;
+import exceptions.UserNotExistsException;
 
 
 public class LoginService {
@@ -10,7 +11,7 @@ public class LoginService {
         UserDAO userDAO = new UserDAO();
         User user = userDAO.readUser(email);
         
-        if(user == null) return null;
+        if(user == null) throw new UserNotExistsException();
         
         if(user.getPassword().equals(password)) return user;
         else return null;
