@@ -12,7 +12,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema agenda
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `agenda` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+USE `agenda` ;
 
 -- -----------------------------------------------------
 -- Table `agenda`.`usuario`
@@ -53,12 +53,12 @@ CREATE TABLE IF NOT EXISTS `agenda`.`usuario_evento` (
   INDEX `fk_usuario_has_evento_usuario_idx` (`us_email` ASC) VISIBLE,
   CONSTRAINT `fk_usuario_has_evento_usuario`
     FOREIGN KEY (`us_email`)
-    REFERENCES `mydb`.`usuario` (`us_email`)
+    REFERENCES `agenda`.`usuario` (`us_email`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_has_evento_evento1`
     FOREIGN KEY (`ev_data_hora` , `ev_sala`)
-    REFERENCES `mydb`.`evento` (`ev_data_hora` , `ev_sala`)
+    REFERENCES `agenda`.`evento` (`ev_data_hora` , `ev_sala`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
