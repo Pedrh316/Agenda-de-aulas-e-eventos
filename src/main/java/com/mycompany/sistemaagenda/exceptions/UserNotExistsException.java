@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Exception.java to edit this template
- */
 package com.mycompany.sistemaagenda.exceptions;
 
-/**
- *
- * @author arthur
- */
+
 public class UserNotExistsException extends Exception {
 
     /**
@@ -15,6 +8,7 @@ public class UserNotExistsException extends Exception {
      * detail message.
      */
     public UserNotExistsException() {
+        super("Usuário inexistente");
     }
 
     /**
@@ -25,9 +19,5 @@ public class UserNotExistsException extends Exception {
      */
     public UserNotExistsException(String msg) {
         super(msg);
-    }
-    
-    public String getMessage(){
-        return "Usuário inexistente";
-    }
+    }    
 }
