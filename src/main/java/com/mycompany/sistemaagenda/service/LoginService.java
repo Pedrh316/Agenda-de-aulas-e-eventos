@@ -2,7 +2,7 @@ package com.mycompany.sistemaagenda.service;
 
 import com.mycompany.sistemaagenda.dao.UserDAO;
 import com.mycompany.sistemaagenda.model.User;
-import exceptions.UserNotExistsException;
+import com.mycompany.sistemaagenda.exceptions.UserNotExistsException;
 
 
 public class LoginService {

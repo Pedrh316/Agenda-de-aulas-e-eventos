@@ -5,7 +5,7 @@ import com.mycompany.sistemaagenda.controller.DatabaseController;
 import com.mycompany.sistemaagenda.controller.LoginController;
 import com.mycompany.sistemaagenda.controller.SignUpController;
 import com.mycompany.sistemaagenda.view.*;
-import exceptions.WindowNotExistsException;
+import com.mycompany.sistemaagenda.exceptions.WindowNotExistsException;
 
 
 public class Navigator {    
