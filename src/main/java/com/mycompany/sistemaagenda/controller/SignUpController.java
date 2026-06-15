@@ -4,7 +4,7 @@ import com.mycompany.sistemaagenda.model.User;
 import com.mycompany.sistemaagenda.navigation.Navigator;
 import com.mycompany.sistemaagenda.service.LoginService;
 import com.mycompany.sistemaagenda.view.SignUp;
-import exceptions.WindowNotExistsException;
+import com.mycompany.sistemaagenda.exceptions.WindowNotExistsException;
 
 
 public class SignUpController {
