@@ -1,10 +1,14 @@
 package com.mycompany.sistemaagenda.controller;
 
+import com.mycompany.sistemaagenda.exceptions.InvalidPasswordException;
+import com.mycompany.sistemaagenda.exceptions.UserNotExistsException;
+import com.mycompany.sistemaagenda.exceptions.WindowNotExistsException;
 import com.mycompany.sistemaagenda.model.User;
 import com.mycompany.sistemaagenda.navigation.Navigator;
 import com.mycompany.sistemaagenda.navigation.Session;
 import com.mycompany.sistemaagenda.service.LoginService;
 import com.mycompany.sistemaagenda.view.Login;
+import java.sql.SQLException;
 
 
 public class LoginController {
@@ -27,21 +31,22 @@ public class LoginController {
         User user;
         try {
             user = loginService.authenticate(email, password);
-            if(user == null){
-                loginWindow.loginError();
+            
+            loginWindow.loginSuccess();            
+            Session.setLoggedUser(user);
+            
+            nav.closeLogin();
+            if(user.isAdmin()){
+                nav.adminLogin();
             }else{
-                loginWindow.loginSuccess();
-                Session.setLoggedUser(user);
-                nav.closeLogin();
-                if(user.isAdmin()){
-                    nav.adminLogin();
-                }else{
-                    nav.userLogin();
-                }
+                nav.userLogin();
             }
-        } catch (Exception ex) {
+            
+        } catch (InvalidPasswordException | UserNotExistsException ex){
+            loginWindow.loginError();
+        } catch (WindowNotExistsException | ClassNotFoundException | SQLException ex) {
             loginWindow.showErrorMsg(ex.getMessage(), "Erro de conexão");
-        }                
+        }
     }
     
     public void dbCon(){
