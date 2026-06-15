@@ -29,7 +29,7 @@ public class Navigator {
     public void showLogin(){        
         if(loginWindow==null){
             loginWindow = new Login();
-            loginWindow.setController(new LoginController(loginWindow, this, dbConWindow.getController()));
+            loginWindow.setController(new LoginController(loginWindow, this));
         }
         if(dbConWindow!=null) dbConWindow.setVisible(false);
         loginWindow.setVisible(true);
@@ -72,7 +72,7 @@ public class Navigator {
     public void userLogin(){
         if(userWindow == null){
             userWindow = new CommonUser();
-            userWindow.setController(new CommonUserController(this, userWindow, dbConWindow.getController()));
+            userWindow.setController(new CommonUserController(userWindow, this));
         }
         userWindow.setVisible(true);
     }

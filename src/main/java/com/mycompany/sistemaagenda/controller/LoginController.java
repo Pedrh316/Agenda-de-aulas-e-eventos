@@ -2,19 +2,18 @@ package com.mycompany.sistemaagenda.controller;
 
 import com.mycompany.sistemaagenda.model.User;
 import com.mycompany.sistemaagenda.navigation.Navigator;
+import com.mycompany.sistemaagenda.navigation.Session;
 import com.mycompany.sistemaagenda.service.LoginService;
 import com.mycompany.sistemaagenda.view.Login;
 
 
 public class LoginController {
     private final Login loginWindow;
-    private final Navigator nav;
-    private final DatabaseController dbCtrl;
+    private final Navigator nav;    
     
-    public LoginController(Login loginWindow, Navigator nav, DatabaseController dbCtrl){
+    public LoginController(Login loginWindow, Navigator nav){
         this.loginWindow = loginWindow;
-        this.nav = nav;
-        this.dbCtrl = dbCtrl;
+        this.nav = nav;        
     }
     
     public void login(String email, String password){
@@ -32,7 +31,7 @@ public class LoginController {
                 loginWindow.loginError();
             }else{
                 loginWindow.loginSuccess();
-                dbCtrl.setActiveUser(user);
+                Session.setLoggedUser(user);
                 nav.closeLogin();
                 if(user.isAdmin()){
                     nav.adminLogin();

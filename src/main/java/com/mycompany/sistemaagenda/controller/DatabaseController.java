@@ -1,7 +1,6 @@
 package com.mycompany.sistemaagenda.controller;
 
 import com.mycompany.sistemaagenda.model.Database;
-import com.mycompany.sistemaagenda.model.User;
 import com.mycompany.sistemaagenda.navigation.Navigator;
 import com.mycompany.sistemaagenda.service.DatabaseService;
 import com.mycompany.sistemaagenda.view.DbConnection;
@@ -10,8 +9,7 @@ import com.mycompany.sistemaagenda.view.DbConnection;
 public class DatabaseController {
     private final DbConnection dbConWindow;
     private final Navigator nav;
-    private final DatabaseService dbServ;
-    private User activeUser;
+    private final DatabaseService dbServ;   
     
     public DatabaseController(DbConnection dbConWindow, Navigator nav) {        
         this.dbConWindow = dbConWindow;
@@ -44,13 +42,5 @@ public class DatabaseController {
         } catch(Exception e){
             dbConWindow.showErrorMsg(e);
         }
-    }
-    
-    public void setActiveUser(User activeUser){
-        this.activeUser = activeUser;
-    }
-    
-    public User getActvieUser(){
-        return this.activeUser;
-    }
+    }    
 }
