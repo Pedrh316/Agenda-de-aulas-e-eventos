@@ -1,0 +1,20 @@
+package com.mycompany.sistemaagenda.navigation;
+
+import com.mycompany.sistemaagenda.model.User;
+
+
+public class Session {
+    private static User loggedUser;
+    
+    public static User getLoggedUser(){
+        return loggedUser;
+    }
+    
+    public static void setLoggedUser(User user){
+        loggedUser = user;
+    }
+    
+    public static void userLogout(){
+        loggedUser = null;
+    }
+}
