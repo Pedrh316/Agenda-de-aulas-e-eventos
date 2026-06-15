@@ -2,7 +2,6 @@ package com.mycompany.sistemaagenda.controller;
 
 import com.mycompany.sistemaagenda.exceptions.InvalidPasswordException;
 import com.mycompany.sistemaagenda.exceptions.UserNotExistsException;
-import com.mycompany.sistemaagenda.exceptions.WindowNotExistsException;
 import com.mycompany.sistemaagenda.model.User;
 import com.mycompany.sistemaagenda.navigation.Navigator;
 import com.mycompany.sistemaagenda.navigation.Session;
@@ -34,8 +33,7 @@ public class LoginController {
             
             loginWindow.loginSuccess();            
             Session.setLoggedUser(user);
-            
-            nav.closeLogin();
+                        
             if(user.isAdmin()){
                 nav.adminLogin();
             }else{
@@ -44,7 +42,7 @@ public class LoginController {
             
         } catch (InvalidPasswordException | UserNotExistsException ex){
             loginWindow.loginError();
-        } catch (WindowNotExistsException | ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             loginWindow.showErrorMsg(ex.getMessage(), "Erro de conexão");
         }
     }

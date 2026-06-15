@@ -74,11 +74,15 @@ public class Navigator {
             userWindow = new CommonUser();
             userWindow.setController(new CommonUserController(userWindow, this));
         }
-        userWindow.setVisible(true);
+        try{
+            closeLogin();
+            userWindow.setVisible(true);
+        }catch(WindowNotExistsException ex){}        
     }
     
     public void userLogout(){
         if(userWindow != null) userWindow.dispose();
         userWindow = null;
+        showLogin();
     }
 }
