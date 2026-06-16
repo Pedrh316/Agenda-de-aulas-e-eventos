@@ -76,7 +76,7 @@ public class UserDAO {
     public List<Event> readUserEvents(User user) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM agenda.evento e "
                 + "JOIN agenda.usuario_evento ue "
-                + "ON e.ev_data_hora = ue.ev_data_hora AND e.ev_sala = ue.ev_sala"
+                + "ON e.ev_data_hora = ue.ev_data_hora AND e.ev_sala = ue.ev_sala "
                 + "WHERE ue.us_email = ?";
         List<Event> list = new LinkedList<>();
         

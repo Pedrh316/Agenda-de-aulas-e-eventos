@@ -4,6 +4,7 @@ import com.mycompany.sistemaagenda.controller.CommonUserController;
 import com.mycompany.sistemaagenda.model.Event;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -226,6 +227,23 @@ public class CommonUser extends javax.swing.JFrame {
         }
     }
     
+    public void showErrorMsg(String msg, String title){        
+        JOptionPane.showMessageDialog(
+           this,
+           msg,
+           title,
+           JOptionPane.ERROR_MESSAGE
+        );
+    }
+    
+    public void showInfoMsg(String msg, String title){        
+        JOptionPane.showMessageDialog(
+           this,
+           msg,
+           title,
+           JOptionPane.INFORMATION_MESSAGE
+        );
+    }
     
     public void setWelcomeLbText(String text){
         welcomeLb.setText(text);
