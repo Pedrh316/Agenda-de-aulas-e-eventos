@@ -1,10 +1,13 @@
 package com.mycompany.sistemaagenda.controller;
 
-import com.mycompany.sistemaagenda.dao.EventDAO;
+import com.mycompany.sistemaagenda.exceptions.EmptyListException;
 import com.mycompany.sistemaagenda.model.Event;
 import com.mycompany.sistemaagenda.navigation.Navigator;
 import com.mycompany.sistemaagenda.navigation.Session;
+import com.mycompany.sistemaagenda.service.EventService;
+import com.mycompany.sistemaagenda.service.UserService;
 import com.mycompany.sistemaagenda.view.CommonUser;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -37,20 +40,30 @@ public class CommonUserController {
             case 0 -> {}
             
             case 1 -> {
-                EventDAO edao = new EventDAO();
-                try {
-                    List<Event> events = edao.readEvents();
+                EventService es = new EventService();
+                try{
+                    List<Event> events = es.getEvents();
                     
                     userWindow.updateTable(userWindow.getAvailableEventsTable(), events);
                     
-                } catch (Exception ex) {
-                    // mostrar erro ao atualizar tabela
+                } catch(EmptyListException ex){
+                    userWindow.showInfoMsg("Não há eventos disponíveis no momento.", "Que pena!");
+                } catch(ClassNotFoundException | SQLException ex){
+                    userWindow.showErrorMsg(ex.getMessage(), "Erro ao atualizar tabela");
                 }
             }
             
             case 2 -> {
-                // criar metodo para ler eventos do usuario no dao
-                //userWindow.updateTable(userWindow.getUserEventsTable(), events);
+                UserService us = new UserService();
+                try{
+                    List<Event> events = us.getUserEvents(Session.getLoggedUser());
+                    
+                    userWindow.updateTable(userWindow.getUserEventsTable(), events);
+                } catch(EmptyListException ex){
+                    userWindow.showInfoMsg("Você ainda não se inscreveu em nenhum evento.", "Tabela");
+                } catch(ClassNotFoundException | SQLException ex){
+                    userWindow.showErrorMsg(ex.getMessage(), "Erro ao atualizar tabela");
+                }
             }
             
             default -> {}
