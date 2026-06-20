@@ -1,6 +1,7 @@
 package com.mycompany.sistemaagenda.controller;
 
 import com.mycompany.sistemaagenda.exceptions.EmptyListException;
+import com.mycompany.sistemaagenda.exceptions.InsertionFailedException;
 import com.mycompany.sistemaagenda.model.Event;
 import com.mycompany.sistemaagenda.navigation.Navigator;
 import com.mycompany.sistemaagenda.navigation.Session;
@@ -8,6 +9,9 @@ import com.mycompany.sistemaagenda.service.EventService;
 import com.mycompany.sistemaagenda.service.UserService;
 import com.mycompany.sistemaagenda.view.CommonUser;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -67,6 +71,21 @@ public class CommonUserController {
             }
             
             default -> {}
+        }
+    }
+    
+    public void tableItemSelected(int room, LocalDate date, LocalTime time){
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        UserService us = new UserService();
+        
+        if(!userWindow.showQuenstionMsg("Deseja se inscrever no evento?", "Inscrição")) return;
+        
+        try{
+            us.subscribeToEvent(Session.getLoggedUser(), room, dateTime);
+        } catch(InsertionFailedException ex){
+            userWindow.showErrorMsg(ex.getMessage(), "Falha na inscrição");
+        } catch(ClassNotFoundException | SQLException ex){
+            userWindow.showErrorMsg(ex.getMessage(), "Erro de conexão");
         }
     }
 }

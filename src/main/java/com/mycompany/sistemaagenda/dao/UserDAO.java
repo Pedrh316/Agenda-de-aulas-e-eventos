@@ -1,6 +1,5 @@
 package com.mycompany.sistemaagenda.dao;
 
-import com.mycompany.sistemaagenda.model.Event;
 import com.mycompany.sistemaagenda.model.User;
 import com.mycompany.sistemaagenda.service.DatabaseService;
 import java.sql.*;
@@ -71,35 +70,7 @@ public class UserDAO {
             }            
             return list;
         }
-    }
-    
-    public List<Event> readUserEvents(User user) throws SQLException, ClassNotFoundException{
-        String sql = "SELECT * FROM agenda.evento e "
-                + "JOIN agenda.usuario_evento ue "
-                + "ON e.ev_data_hora = ue.ev_data_hora AND e.ev_sala = ue.ev_sala "
-                + "WHERE ue.us_email = ?";
-        List<Event> list = new LinkedList<>();
-        
-        try(
-            Connection con = dbServ.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);            
-        ){
-            ps.setString(1, user.getEmail());
-            
-            try(ResultSet rs = ps.executeQuery()){
-                while(rs.next()){
-                    list.add(new Event(
-                            rs.getTimestamp("ev_data_hora").toLocalDateTime(),
-                            rs.getInt("ev_sala"),
-                            rs.getString("ev_nome"),
-                            rs.getString("ev_palestrante"),
-                            rs.getInt("ev_inscricao")
-                    ));
-                }
-                return list;
-            }
-        }
-    }
+    }        
     
     public int updateUser(User user) throws SQLException, ClassNotFoundException{
         String sql = "UPDATE agenda.usuario SET us_nome = ?,"
