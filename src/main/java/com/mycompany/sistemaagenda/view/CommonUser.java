@@ -2,6 +2,8 @@ package com.mycompany.sistemaagenda.view;
 
 import com.mycompany.sistemaagenda.controller.CommonUserController;
 import com.mycompany.sistemaagenda.model.Event;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -101,6 +103,11 @@ public class CommonUser extends javax.swing.JFrame {
                 "Evento", "Palestrante", "Sala", "Data", "Horário", "Inscrição"
             }
         ));
+        availableEventsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                availableEventsTableMouseClicked(evt);
+            }
+        });
         availableEventsTableSP.setViewportView(availableEventsTable);
 
         availableEventsLb.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -202,7 +209,27 @@ public class CommonUser extends javax.swing.JFrame {
     private void tabPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabPaneStateChanged
         if(ctrl!=null) ctrl.tabSelected(tabPane.getSelectedIndex());
     }//GEN-LAST:event_tabPaneStateChanged
+
+    private void availableEventsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_availableEventsTableMouseClicked
+        tableItemSelected(availableEventsTable);
+    }//GEN-LAST:event_availableEventsTableMouseClicked
     
+    private void tableItemSelected(JTable table){
+        int line = table.getSelectedRow();
+        if(line < 0) return;
+        
+        ctrl.tableItemSelected(
+                (int) table.getModel().getValueAt(line, 2),
+                LocalDate.parse(
+                    table.getModel().getValueAt(line, 3).toString(),
+                    DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                ),
+                LocalTime.parse(
+                    table.getModel().getValueAt(line, 4).toString(),
+                    DateTimeFormatter.ofPattern("HH:mm")
+                )
+        );
+    }
     
     public void setTab(int index){
         tabPane.setSelectedIndex(index);
@@ -243,6 +270,16 @@ public class CommonUser extends javax.swing.JFrame {
            title,
            JOptionPane.INFORMATION_MESSAGE
         );
+    }
+    
+    public boolean showQuenstionMsg(String msg, String title){        
+        return JOptionPane.showConfirmDialog(
+                this,
+                msg,
+                title,
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        ) == 0;
     }
     
     public void setWelcomeLbText(String text){
