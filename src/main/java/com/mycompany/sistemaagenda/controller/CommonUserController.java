@@ -1,13 +1,16 @@
 package com.mycompany.sistemaagenda.controller;
 
+import com.google.zxing.WriterException;
 import com.mycompany.sistemaagenda.exceptions.EmptyListException;
 import com.mycompany.sistemaagenda.exceptions.InsertionFailedException;
 import com.mycompany.sistemaagenda.model.Event;
 import com.mycompany.sistemaagenda.navigation.Navigator;
 import com.mycompany.sistemaagenda.navigation.Session;
 import com.mycompany.sistemaagenda.service.EventService;
+import com.mycompany.sistemaagenda.service.PixService;
 import com.mycompany.sistemaagenda.service.UserService;
 import com.mycompany.sistemaagenda.view.CommonUser;
+import java.awt.image.BufferedImage;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -74,18 +77,29 @@ public class CommonUserController {
         }
     }
     
-    public void tableItemSelected(int room, LocalDate date, LocalTime time){
+    public void tableItemSelected(int room, LocalDate date, LocalTime time, float fee){
+        String pix = "";
         LocalDateTime dateTime = LocalDateTime.of(date, time);
         UserService us = new UserService();
+        BufferedImage qrcode;
         
-        if(!userWindow.showQuenstionMsg("Deseja se inscrever no evento?", "Inscrição")) return;
+        if(!userWindow.showQuestionMsg("Deseja se inscrever no evento?", "Inscrição")) return;
         
         try{
             us.subscribeToEvent(Session.getLoggedUser(), room, dateTime);
+            
+            if(fee > 0){
+                pix = PixService.generatePixPayload("equiperocketpagamentos@gmail.com", fee);
+                qrcode = PixService.generateQRCode(pix, 500, 500);
+                
+                userWindow.showPayMsg(qrcode);
+            }
         } catch(InsertionFailedException ex){
             userWindow.showErrorMsg(ex.getMessage(), "Falha na inscrição");
         } catch(ClassNotFoundException | SQLException ex){
             userWindow.showErrorMsg(ex.getMessage(), "Erro de conexão");
+        } catch(WriterException we){
+            userWindow.showErrorMsg(we.getMessage(), "Erro ao gerar QR Code");
         }
     }
 }
