@@ -1,0 +1,3 @@
+VAR#>mvn clean compile
+VAR#>mvn clean compile;
+VAR#>mvn clean;

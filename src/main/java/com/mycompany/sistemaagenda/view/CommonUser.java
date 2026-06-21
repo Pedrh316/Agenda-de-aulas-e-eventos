@@ -2,10 +2,13 @@ package com.mycompany.sistemaagenda.view;
 
 import com.mycompany.sistemaagenda.controller.CommonUserController;
 import com.mycompany.sistemaagenda.model.Event;
+import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -227,7 +230,8 @@ public class CommonUser extends javax.swing.JFrame {
                 LocalTime.parse(
                     table.getModel().getValueAt(line, 4).toString(),
                     DateTimeFormatter.ofPattern("HH:mm")
-                )
+                ),
+                (float) table.getModel().getValueAt(line, 5)
         );
     }
     
@@ -248,7 +252,7 @@ public class CommonUser extends javax.swing.JFrame {
                 e.getRoom(),
                 e.getDate().toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 e.getDate().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")),
-                e.getFee()
+                e.getFee() / 100.0
             });
             lin++;
         }
@@ -272,6 +276,7 @@ public class CommonUser extends javax.swing.JFrame {
         );
     }
     
+    //Quenstion???????
     public boolean showQuenstionMsg(String msg, String title){        
         return JOptionPane.showConfirmDialog(
                 this,
@@ -280,6 +285,13 @@ public class CommonUser extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE
         ) == 0;
+    }
+    
+    public void showPayMsg(BufferedImage qr){
+        JOptionPane.showMessageDialog(null, 
+                new JLabel(new ImageIcon(qr)),
+                "Pague com Pix",
+                JOptionPane.PLAIN_MESSAGE);
     }
     
     public void setWelcomeLbText(String text){
