@@ -24,7 +24,7 @@ public class PixService {
         
         retorno.append(campo("58", "BR"));
         retorno.append(campo("59", "Meninas Digitais"));
-        retorno.append(campo("60", "Cornélio Procópio"));
+        retorno.append(campo("60", "Cornelio Procopio"));
         retorno.append(campo("62", campo("05", "***")));
         retorno.append("6304");
         
