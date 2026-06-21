@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author pedrh
@@ -19,14 +18,19 @@ public class AddEventDialog extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddEventDialog.class.getName());
 
-    /**
-     * Creates new form EditEventDialog
-     */
+    private Admin admin = new Admin();
+    
     public AddEventDialog() {
         initComponents();
         setLocationRelativeTo(null);
     }
     
+    public AddEventDialog(Admin admin) {
+        initComponents();
+        setLocationRelativeTo(null);
+        this.admin = admin;
+    }
+        
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -212,6 +216,8 @@ public class AddEventDialog extends javax.swing.JFrame {
         EventDAO eventDAO = new EventDAO();
         try{
             eventDAO.createEvent(event);
+            admin.events = admin.loadEvents();
+            admin.loadEventsOnTable();
             dispose();
         } catch (SQLException | ClassNotFoundException e){
             JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o evento.");

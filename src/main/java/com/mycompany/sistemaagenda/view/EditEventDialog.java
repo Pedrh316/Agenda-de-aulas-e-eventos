@@ -32,6 +32,8 @@ public class EditEventDialog extends javax.swing.JFrame {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     
     public EditEventDialog(Admin admin, Event event){
+        initComponents();
+        setLocationRelativeTo(null);
         this.event = event;
         this.admin = admin;
         loadData();
@@ -61,7 +63,6 @@ public class EditEventDialog extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Editar Evento");
-        setPreferredSize(new java.awt.Dimension(400, 425));
 
         eventDateLabel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         eventDateLabel.setText("Data e hora");
@@ -82,6 +83,7 @@ public class EditEventDialog extends javax.swing.JFrame {
         eventNameLabel.setText("Nome");
 
         eventSpeakerTf.setPreferredSize(new java.awt.Dimension(64, 26));
+        eventSpeakerTf.addActionListener(this::eventSpeakerTfActionPerformed);
 
         eventRoomLabel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         eventRoomLabel.setText("Sala");
@@ -201,6 +203,10 @@ public class EditEventDialog extends javax.swing.JFrame {
     private void eventNameTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventNameTfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_eventNameTfActionPerformed
+
+    private void eventSpeakerTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventSpeakerTfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eventSpeakerTfActionPerformed
 
     public void loadData(){
         eventNameTf.setText(event.getName());

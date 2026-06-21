@@ -180,7 +180,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteEventBtActionPerformed
 
     private void addEvent(){
-        AddEventDialog view = new AddEventDialog();
+        AddEventDialog view = new AddEventDialog(this);
         view.setVisible(true);
     }
     private void editEvent(){
