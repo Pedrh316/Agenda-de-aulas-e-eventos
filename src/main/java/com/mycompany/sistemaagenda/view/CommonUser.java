@@ -252,7 +252,7 @@ public class CommonUser extends javax.swing.JFrame {
                 e.getRoom(),
                 e.getDate().toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 e.getDate().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")),
-                e.getFee() / 100.0
+                e.getFee() / 100.0f
             });
             lin++;
         }
@@ -275,9 +275,8 @@ public class CommonUser extends javax.swing.JFrame {
            JOptionPane.INFORMATION_MESSAGE
         );
     }
-    
-    //Quenstion???????
-    public boolean showQuenstionMsg(String msg, String title){        
+        
+    public boolean showQuestionMsg(String msg, String title){        
         return JOptionPane.showConfirmDialog(
                 this,
                 msg,

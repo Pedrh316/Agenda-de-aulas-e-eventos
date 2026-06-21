@@ -83,7 +83,7 @@ public class CommonUserController {
         UserService us = new UserService();
         BufferedImage qrcode;
         
-        if(!userWindow.showQuenstionMsg("Deseja se inscrever no evento?", "Inscrição")) return;
+        if(!userWindow.showQuestionMsg("Deseja se inscrever no evento?", "Inscrição")) return;
         
         try{
             us.subscribeToEvent(Session.getLoggedUser(), room, dateTime);
