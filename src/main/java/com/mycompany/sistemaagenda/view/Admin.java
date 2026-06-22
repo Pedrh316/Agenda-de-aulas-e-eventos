@@ -1,9 +1,17 @@
 package com.mycompany.sistemaagenda.view;
 
+import com.mycompany.sistemaagenda.controller.AdminController;
 import com.mycompany.sistemaagenda.dao.EventDAO;
 import com.mycompany.sistemaagenda.dao.UserDAO;
+import com.mycompany.sistemaagenda.exceptions.AddEventDialogException;
+import com.mycompany.sistemaagenda.exceptions.DeleteEventException;
+import com.mycompany.sistemaagenda.exceptions.DeleteUserException;
+import com.mycompany.sistemaagenda.exceptions.LoadEventsException;
+import com.mycompany.sistemaagenda.exceptions.LoadUsersException;
 import com.mycompany.sistemaagenda.model.Event;
 import com.mycompany.sistemaagenda.model.User;
+import com.mycompany.sistemaagenda.service.EventService;
+import com.mycompany.sistemaagenda.service.UserService;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,18 +20,50 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class Admin extends javax.swing.JFrame {    
-    List<User> users;
-    List<Event> events;
-    Event selectedEvent;
-    User selectedUser;
+    private List<User> users;
+    private List<Event> events;
+    private Event selectedEvent;
+    private User selectedUser;
+    AdminController adminController = new AdminController();
+    UserService userService = new UserService();
+    EventService eventService = new EventService();
     
     public Admin() {
         initComponents();
-        users = loadUsers();
-        events = loadEvents();
-        loadUsersOnTable();
-        loadEventsOnTable();
         setLocationRelativeTo(null);
+        adminController.init(this);
+    }
+    
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
+
+    public Event getSelectedEvent() {
+        return selectedEvent;
+    }
+
+    public void setSelectedEvent(Event selectedEvent) {
+        this.selectedEvent = selectedEvent;
+    }
+
+    public User getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setSelectedUser(User selectedUser) {
+        this.selectedUser = selectedUser;
     }
     
     @SuppressWarnings("unchecked")
@@ -150,11 +190,11 @@ public class Admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addEventBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventBtActionPerformed
-        addEvent();
+        adminController.addEvent(this);
     }//GEN-LAST:event_addEventBtActionPerformed
 
     private void deleteUserBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBtActionPerformed
-        deleteUser();
+        adminController.deleteUser(this, selectedUser);
     }//GEN-LAST:event_deleteUserBtActionPerformed
 
     private void loadParticipantsBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadParticipantsBtActionPerformed
@@ -162,7 +202,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_loadParticipantsBtActionPerformed
 
     private void editEventBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editEventBtActionPerformed
-        editEvent();
+         adminController.editEvent(this, selectedEvent);
     }//GEN-LAST:event_editEventBtActionPerformed
 
     private void userTbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTbMouseClicked
@@ -176,65 +216,13 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_eventTbMouseClicked
 
     private void deleteEventBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEventBtActionPerformed
-        deleteEvent();
+        adminController.deleteEvent(this, selectedEvent);
     }//GEN-LAST:event_deleteEventBtActionPerformed
 
-    private void addEvent(){
-        AddEventDialog view = new AddEventDialog(this);
-        view.setVisible(true);
-    }
-    private void editEvent(){
-        EditEventDialog editEventDialog = new EditEventDialog(this, selectedEvent);
-        editEventDialog.setVisible(true);
-    }
-    private void deleteUser(){
-        UserDAO userDAO = new UserDAO();
-        try{
-            userDAO.deleteUser(selectedUser);
-            users = loadUsers();
-            loadUsersOnTable();
-        } catch (SQLException | ClassNotFoundException e){
-            JOptionPane.showMessageDialog(this, "Não foi possível excluir o usuário selecionado");
-        }
-    }
-    private void deleteEvent(){
-        if(selectedEvent != null){
-            EventDAO eventDAO = new EventDAO();
-            try{
-                eventDAO.deleteEvent(selectedEvent);
-                events = loadEvents();
-                loadEventsOnTable();
-            } catch (SQLException | ClassNotFoundException e){
-                JOptionPane.showMessageDialog(this, "Não foi possível excluir o usuário selecionado");
-            }
-        }
-    }
-    
     private void loadParticipants(){
         
     }
-    private List<User> loadUsers(){
-        UserDAO userDAO = new UserDAO();
-        List<User> users = new ArrayList();
-        try{
-            users = userDAO.readUsers();
-        } catch(SQLException | ClassNotFoundException e){
-            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao carregar os usuários do banco de dados");
-        }
-        return users;
-    }
-    public List<Event> loadEvents(){
-        EventDAO eventDAO = new EventDAO();
-        List<Event> events = new ArrayList();
-        try{
-            events = eventDAO.readEvents();
-        } catch(SQLException | ClassNotFoundException e){
-            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao carregar os eventos do banco de dados");
-        }
-        return events;
-    }
-    
-    private void loadUsersOnTable(){
+    public void loadUsersOnTable(){
         DefaultTableModel model = (DefaultTableModel) userTb.getModel();
         model.setRowCount(0);   
         for(User e : users){ model.addRow(new Object[]{e.getName()}); }
@@ -245,6 +233,21 @@ public class Admin extends javax.swing.JFrame {
         for(Event e : events){ model.addRow(new Object[]{e.getName()}); }
     }
     
+    public void showDeleteEventError(){        
+        JOptionPane.showMessageDialog(this, new DeleteEventException().getMessage());
+    }
+    public void showLoadEventsError(){
+        JOptionPane.showMessageDialog(this, new LoadEventsException().getMessage());
+    }
+    public void showLoadUsersError(){
+        JOptionPane.showMessageDialog(this, new LoadUsersException().getMessage());
+    }
+    public void showDeleteUserError(){
+        JOptionPane.showMessageDialog(this, new DeleteUserException().getMessage());
+    }
+    public void showAddEventError(){
+        JOptionPane.showMessageDialog(this, new AddEventDialogException().getMessage());
+    }
     
     public static void main(String args[]) {
         /* Create and display the form */

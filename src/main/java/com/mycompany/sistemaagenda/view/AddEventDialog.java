@@ -4,6 +4,7 @@
  */
 package com.mycompany.sistemaagenda.view;
 
+import com.mycompany.sistemaagenda.controller.AddEventDialogController;
 import com.mycompany.sistemaagenda.dao.EventDAO;
 import com.mycompany.sistemaagenda.model.Event;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ public class AddEventDialog extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddEventDialog.class.getName());
 
     private Admin admin = new Admin();
+    private AddEventDialogController addEventDialogController = new AddEventDialogController();
     
     public AddEventDialog() {
         initComponents();
@@ -196,34 +198,13 @@ public class AddEventDialog extends javax.swing.JFrame {
         String speaker = eventSpeakerTf.getText();
         String roomText = eventRoomTf.getText().trim();
         String feeText = eventFeeTf.getText().trim();
-        int room;
-        int fee;
-        try{
-            room = Integer.parseInt(roomText);
-            fee = Integer.parseInt(feeText);
-        } catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "Os campos Sala e Inscrição devem ser valores numéricos.");
-            return;
-        }
-        if(name.isEmpty() || speaker.isEmpty() || roomText.isEmpty() || feeText.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Nenhum dos campos podem ser vazios.");
-            return;
-        }
-        DateTimeFormatter formatter =
-        DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime date = LocalDateTime.parse(eventDateFtf.getText(), formatter);
-        Event event = new Event(date, room, name, speaker, fee);
-        EventDAO eventDAO = new EventDAO();
-        try{
-            eventDAO.createEvent(event);
-            admin.events = admin.loadEvents();
-            admin.loadEventsOnTable();
-            dispose();
-        } catch (SQLException | ClassNotFoundException e){
-            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o evento.");
-        }
+        String dateText = eventDateFtf.getText();
+        addEventDialogController.addEvent(admin, this, name, speaker, roomText, feeText, dateText);
     }
     
+    public void showAddEventError(Exception e){
+        JOptionPane.showMessageDialog(this, e.getMessage());
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

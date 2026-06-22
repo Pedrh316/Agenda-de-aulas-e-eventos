@@ -1,13 +1,19 @@
 package com.mycompany.sistemaagenda.service;
 
+import com.mycompany.sistemaagenda.dao.UserDAO;
 import com.mycompany.sistemaagenda.dao.UserEventDAO;
+import com.mycompany.sistemaagenda.exceptions.DeleteUserException;
 import com.mycompany.sistemaagenda.exceptions.EmptyListException;
 import com.mycompany.sistemaagenda.exceptions.InsertionFailedException;
+import com.mycompany.sistemaagenda.exceptions.LoadUsersException;
 import com.mycompany.sistemaagenda.model.Event;
 import com.mycompany.sistemaagenda.model.User;
+import com.mycompany.sistemaagenda.view.Admin;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 
 public class UserService {
@@ -35,6 +41,26 @@ public class UserService {
             
             throw ex;
         }                
+    }
+    
+    public List<User> loadUsers() throws LoadUsersException{
+        UserDAO userDAO = new UserDAO();
+        List<User> users = new ArrayList();
+        try{
+            users = userDAO.readUsers();
+        } catch(SQLException | ClassNotFoundException e){
+            throw new LoadUsersException();
+        }
+        return users;
+    }
+    
+    public void deleteUser(User selectedUser) throws DeleteUserException{
+        UserDAO userDAO = new UserDAO();
+        try{
+            userDAO.deleteUser(selectedUser);
+        } catch (SQLException | ClassNotFoundException e){
+            throw new DeleteUserException();
+        }
     }
     
 }

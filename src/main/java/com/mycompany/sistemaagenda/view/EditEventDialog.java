@@ -4,6 +4,7 @@
  */
 package com.mycompany.sistemaagenda.view;
 
+import com.mycompany.sistemaagenda.controller.EditEventDialogController;
 import com.mycompany.sistemaagenda.dao.EventDAO;
 import com.mycompany.sistemaagenda.model.Event;
 import java.sql.SQLException;
@@ -26,6 +27,8 @@ public class EditEventDialog extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
+    
+    EditEventDialogController editEventDialogController = new EditEventDialogController();
     
     private Event event = new Event();
     private Admin admin = new Admin();
@@ -221,33 +224,13 @@ public class EditEventDialog extends javax.swing.JFrame {
         String speaker = eventSpeakerTf.getText();
         String roomText = eventRoomTf.getText().trim();
         String feeText = eventFeeTf.getText().trim();
-        int room;
-        int fee;
-        try{
-            room = Integer.parseInt(roomText);
-            fee = Integer.parseInt(feeText);
-        } catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "Os campos Sala e Inscrição devem ser valores numéricos.");
-            return;
-        }
-        if(name.isEmpty() || speaker.isEmpty() || roomText.isEmpty() || feeText.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Nenhum dos campos podem ser vazios.");
-            return;
-        }        
-        LocalDateTime date = LocalDateTime.parse(eventDateFtf.getText(), formatter);
-        Event updtEvent = new Event(date, room, name, speaker, fee);
-        EventDAO eventDAO = new EventDAO();
-        try{
-            eventDAO.updateEvent(this.event, updtEvent);
-            admin.events = admin.loadEvents();
-            admin.loadEventsOnTable();
-            dispose();
-        }
-        catch(ClassNotFoundException | SQLException e){
-            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao editar os valores");
-        }
+        String date = eventDateFtf.getText();
+        editEventDialogController.saveEdit(admin, this, event, name, speaker, roomText, feeText, date);
     }
     
+    public void showEditEventError(Exception e){
+        JOptionPane.showMessageDialog(this, e.getMessage());
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
