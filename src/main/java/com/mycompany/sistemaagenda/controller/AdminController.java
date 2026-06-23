@@ -8,10 +8,13 @@ import com.mycompany.sistemaagenda.exceptions.LoadEventsException;
 import com.mycompany.sistemaagenda.exceptions.LoadUsersException;
 import com.mycompany.sistemaagenda.model.Event;
 import com.mycompany.sistemaagenda.model.User;
+import com.mycompany.sistemaagenda.navigation.Navigator;
+import com.mycompany.sistemaagenda.navigation.Session;
 import com.mycompany.sistemaagenda.service.EventService;
 import com.mycompany.sistemaagenda.service.UserService;
 import com.mycompany.sistemaagenda.view.AddEventDialog;
 import com.mycompany.sistemaagenda.view.Admin;
+import com.mycompany.sistemaagenda.view.CommonUser;
 import com.mycompany.sistemaagenda.view.EditEventDialog;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,17 +25,21 @@ import javax.swing.JOptionPane;
 public class AdminController {
     private final EventService eventService = new EventService();
     private final UserService userService = new UserService();
+    private final Navigator nav;
+    private Admin adminWindow;
     
-    public void init(Admin admin){
+    public AdminController(Admin adminWindow, Navigator nav){
+        this.adminWindow = adminWindow;
+        this.nav = nav;        
         try{
-            admin.setUsers(userService.loadUsers());
-            admin.setEvents(eventService.loadEvents());
-            admin.loadUsersOnTable();
-            admin.loadEventsOnTable();
+            adminWindow.setUsers(userService.loadUsers());
+            adminWindow.setEvents(eventService.loadEvents());
+            adminWindow.loadUsersOnTable();
+            adminWindow.loadEventsOnTable();
         } catch(LoadUsersException e){
-            admin.showLoadUsersError();
+            adminWindow.showLoadUsersError();
         } catch(LoadEventsException e){
-            admin.showLoadEventsError();
+            adminWindow.showLoadEventsError();
         }
     }
     
@@ -68,7 +75,9 @@ public class AdminController {
         EditEventDialog editEventDialog = new EditEventDialog(admin, selectedEvent);
         editEventDialog.setVisible(true);
     }
-        
-    
+     
+    public void logout(){
+        nav.adminLogout();
+    }
     
 }

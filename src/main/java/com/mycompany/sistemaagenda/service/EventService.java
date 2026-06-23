@@ -1,6 +1,7 @@
 package com.mycompany.sistemaagenda.service;
 
 import com.mycompany.sistemaagenda.dao.EventDAO;
+import com.mycompany.sistemaagenda.dao.UserEventDAO;
 import com.mycompany.sistemaagenda.exceptions.AddEventDialogException;
 import com.mycompany.sistemaagenda.exceptions.DeleteEventException;
 import com.mycompany.sistemaagenda.exceptions.DeleteUserException;
@@ -10,6 +11,7 @@ import com.mycompany.sistemaagenda.exceptions.EmptyListException;
 import com.mycompany.sistemaagenda.exceptions.InvalidFieldException;
 import com.mycompany.sistemaagenda.exceptions.LoadEventsException;
 import com.mycompany.sistemaagenda.model.Event;
+import com.mycompany.sistemaagenda.model.User;
 import com.mycompany.sistemaagenda.view.Admin;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -23,6 +25,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class EventService {
     EventDAO eventDAO = new EventDAO();
+    UserEventDAO userEventDAO = new UserEventDAO();
+    
     public List<Event> getEvents() throws SQLException, ClassNotFoundException, EmptyListException{
         List<Event> list = eventDAO.readEvents();
         if(list.isEmpty()) throw new EmptyListException("Nenhum evento cadastrado");
@@ -48,6 +52,10 @@ public class EventService {
         }
         return events;
     }    
+    
+    public List<User> loadParticipants(Event event) throws ClassNotFoundException, SQLException{
+        return userEventDAO.readUsersByEvent(event);
+    }
     
     public Event validateEvent(String name, String speaker, String roomText, String feeText, String dateStr) throws InvalidFieldException, EmptyFieldException, EditEventException{
         int room;

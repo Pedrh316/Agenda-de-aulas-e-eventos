@@ -64,4 +64,31 @@ public class UserEventDAO {
             }
         }
     }
+    public List<User> readUsersByEvent(Event event) throws ClassNotFoundException, SQLException {
+        String sql = "SELECT * FROM agenda.usuario u "
+                + "JOIN agenda.usuario_evento ue "
+                + "ON u.us_email = ue.us_email "
+                + "WHERE ue.ev_data_hora = ? AND ue.ev_sala = ?";
+        List<User> list = new LinkedList<>();
+        
+        try(
+            Connection con = dbServ.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);            
+        ){
+            ps.setString(1, event.getDate().toString() );
+            ps.setString(2, String.valueOf(event.getRoom()) );
+            
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    list.add(new User(
+                            rs.getString("us_email"),
+                            rs.getString("us_nome"),
+                            rs.getString("us_senha"),
+                            rs.getBoolean("us_admin")
+                    ));
+                }
+                return list;
+            }
+        }
+    }
 }

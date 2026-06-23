@@ -1,5 +1,6 @@
 package com.mycompany.sistemaagenda.navigation;
 
+import com.mycompany.sistemaagenda.controller.AdminController;
 import com.mycompany.sistemaagenda.controller.CommonUserController;
 import com.mycompany.sistemaagenda.controller.DatabaseController;
 import com.mycompany.sistemaagenda.controller.LoginController;
@@ -61,7 +62,10 @@ public class Navigator {
     }
     
     public void adminLogin(){
-        if(adminWindow == null) adminWindow = new Admin();
+        if(adminWindow == null) {
+            adminWindow = new Admin();
+            adminWindow.setController(new AdminController(adminWindow, this));
+        }
         adminWindow.setVisible(true);        
     }
     public void adminLogout(){

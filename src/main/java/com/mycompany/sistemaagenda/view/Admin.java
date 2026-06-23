@@ -24,15 +24,18 @@ public class Admin extends javax.swing.JFrame {
     private List<Event> events;
     private Event selectedEvent;
     private User selectedUser;
-    AdminController adminController = new AdminController();
-    UserService userService = new UserService();
-    EventService eventService = new EventService();
+    private AdminController adminController;
+    private UserService userService = new UserService();
+    private EventService eventService = new EventService();
     
     public Admin() {
         initComponents();
         setLocationRelativeTo(null);
-        adminController.init(this);
     }
+    
+    public void setController(AdminController ctrl){
+        this.adminController = ctrl;
+    }    
     
     public List<User> getUsers() {
         return users;
@@ -79,10 +82,10 @@ public class Admin extends javax.swing.JFrame {
         eventTb = new javax.swing.JTable();
         loadParticipantsBt = new javax.swing.JButton();
         deleteEventBt = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Admin");
-        setPreferredSize(new java.awt.Dimension(700, 423));
 
         addEventBt.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         addEventBt.setText("Adicionar Evento");
@@ -143,6 +146,10 @@ public class Admin extends javax.swing.JFrame {
         deleteEventBt.setText("Excluir Evento");
         deleteEventBt.addActionListener(this::deleteEventBtActionPerformed);
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jButton1.setText("Voltar");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,7 +161,8 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(deleteUserBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(loadParticipantsBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(editEventBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deleteEventBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(deleteEventBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(eventSp, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -180,7 +188,9 @@ public class Admin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(deleteUserBt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(deleteEventBt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(deleteEventBt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -219,7 +229,18 @@ public class Admin extends javax.swing.JFrame {
         adminController.deleteEvent(this, selectedEvent);
     }//GEN-LAST:event_deleteEventBtActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        adminController.logout();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void loadParticipants(){
+        EventService evento = new EventService();
+        try{
+            users = evento.loadParticipants(selectedEvent);
+            loadUsersOnTable();
+        } catch (ClassNotFoundException | SQLException e){
+            showLoadUsersError();
+        }
         
     }
     public void loadUsersOnTable(){
@@ -261,6 +282,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton editEventBt;
     private javax.swing.JScrollPane eventSp;
     private javax.swing.JTable eventTb;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton loadParticipantsBt;
     private javax.swing.JScrollPane userSp;
     private javax.swing.JTable userTb;
