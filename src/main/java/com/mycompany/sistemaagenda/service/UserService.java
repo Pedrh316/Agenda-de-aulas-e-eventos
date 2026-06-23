@@ -37,4 +37,11 @@ public class UserService {
         }                
     }
     
+    public void setFeeAs(boolean paid, String email, int room, LocalDateTime dateTime) 
+            throws SQLException, ClassNotFoundException
+    {
+        UserEventDAO uedao = new UserEventDAO();
+        
+        uedao.updateUserEventFee(paid, email, room, dateTime);
+    }
 }

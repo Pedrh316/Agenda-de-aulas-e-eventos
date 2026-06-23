@@ -64,4 +64,22 @@ public class UserEventDAO {
             }
         }
     }
+    
+    public int updateUserEventFee(boolean paid, String email, int room, LocalDateTime dateTime)
+            throws SQLException, ClassNotFoundException
+    {
+        String sql = "UPDATE agenda.usuario_evento SET us_ev_inscricao_paga = ? "
+                + "WHERE us_email = ? AND ev_data_hora = ? AND ev_sala = ?";
+        
+        try(Connection con = dbServ.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ps.setBoolean(1, paid);
+            ps.setString(2, email);
+            ps.setTimestamp(3, Timestamp.valueOf(dateTime));
+            ps.setInt(4, room);
+            
+            return ps.executeUpdate();
+        }
+    }
 }
