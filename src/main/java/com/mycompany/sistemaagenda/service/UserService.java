@@ -43,6 +43,26 @@ public class UserService {
         }                
     }
     
+    public void setFeeAs(boolean paid, String email, int room, LocalDateTime dateTime) 
+            throws SQLException, ClassNotFoundException
+    {
+        UserEventDAO uedao = new UserEventDAO();
+        
+        uedao.updateUserEventFee(paid, email, room, dateTime);
+    }
+    
+    public boolean isFeePaid(String email, int room, LocalDateTime dateTime) 
+            throws SQLException, ClassNotFoundException, EmptyListException
+    {
+        UserEventDAO uedao = new UserEventDAO();
+        
+        int result = uedao.isFeePaid(email, room, dateTime);
+        
+        if(result == 1) return true;
+        else if (result == 0) return false;
+        else throw new EmptyListException("Não foi possível encontrar a inscrição do usuário nesse evento");
+    }
+    
     public List<User> loadUsers() throws LoadUsersException{
         UserDAO userDAO = new UserDAO();
         List<User> users = new ArrayList();
