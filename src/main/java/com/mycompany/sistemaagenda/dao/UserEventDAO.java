@@ -91,4 +91,44 @@ public class UserEventDAO {
             }
         }
     }
+    
+    public int updateUserEventFee(boolean paid, String email, int room, LocalDateTime dateTime)
+            throws SQLException, ClassNotFoundException
+    {
+        String sql = "UPDATE agenda.usuario_evento SET us_ev_inscricao_paga = ? "
+                + "WHERE us_email = ? AND ev_data_hora = ? AND ev_sala = ?";
+        
+        try(Connection con = dbServ.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ps.setBoolean(1, paid);
+            ps.setString(2, email);
+            ps.setTimestamp(3, Timestamp.valueOf(dateTime));
+            ps.setInt(4, room);
+            
+            return ps.executeUpdate();
+        }
+    }
+    
+    public int isFeePaid(String email, int room, LocalDateTime dateTime) 
+            throws SQLException, ClassNotFoundException{
+        
+        String sql = "SELECT * FROM agenda.usuario_evento "
+                + "WHERE us_email = ? AND ev_data_hora = ? AND ev_sala = ?";
+        
+        try(Connection con = dbServ.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)){
+                        
+            ps.setString(1, email);
+            ps.setTimestamp(2, Timestamp.valueOf(dateTime));
+            ps.setInt(3, room);
+            
+            try(ResultSet rs = ps.executeQuery()){            
+                if(rs.next()){
+                    return rs.getBoolean("us_ev_inscricao_paga") == true ? 1 : 0;
+                }
+                return -1;
+            }
+        }
+    }
 }
