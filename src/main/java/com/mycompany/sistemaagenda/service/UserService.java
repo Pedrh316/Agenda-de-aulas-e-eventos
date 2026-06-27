@@ -43,6 +43,20 @@ public class UserService {
         }                
     }
     
+    public void unsubscribeToEvent(String userMail, int room, LocalDateTime dateTime)
+            throws SQLException, ClassNotFoundException{
+        
+        UserEventDAO uedao = new UserEventDAO();
+        
+        try{
+            uedao.deleteUserEvent(userMail, room, dateTime);
+        } catch(SQLException sqle){
+            System.out.println(sqle.getErrorCode());
+            
+            throw sqle;
+        } 
+    }
+    
     public void setFeeAs(boolean paid, String email, int room, LocalDateTime dateTime) 
             throws SQLException, ClassNotFoundException
     {

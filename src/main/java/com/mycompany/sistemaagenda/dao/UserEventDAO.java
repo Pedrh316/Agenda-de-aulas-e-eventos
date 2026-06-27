@@ -37,6 +37,23 @@ public class UserEventDAO {
         }
     }
     
+    public void deleteUserEvent(String email, int room, LocalDateTime dateTime)
+            throws SQLException, ClassNotFoundException{
+        
+        String sql = "DELETE FROM agenda.usuario_evento WHERE us_email = ? "
+                + "AND ev_data_hora = ? AND ev_sala = ?";
+        
+        try(Connection con = dbServ.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ps.setString(1, email);
+            ps.setTimestamp(2, Timestamp.valueOf(dateTime));
+            ps.setInt(3, room);
+            
+            ps.executeUpdate();
+        }
+    }
+    
     public List<Event> readEventsByUser(User user) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM agenda.evento e "
                 + "JOIN agenda.usuario_evento ue "

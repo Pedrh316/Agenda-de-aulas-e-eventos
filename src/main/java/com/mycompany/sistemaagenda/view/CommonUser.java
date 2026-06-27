@@ -2,6 +2,7 @@ package com.mycompany.sistemaagenda.view;
 
 import com.mycompany.sistemaagenda.controller.CommonUserController;
 import com.mycompany.sistemaagenda.model.Event;
+import com.mycompany.sistemaagenda.navigation.Session;
 import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,11 +16,17 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class CommonUser extends javax.swing.JFrame {
-    private CommonUserController ctrl;   
+    private CommonUserController ctrl;
+    private Session activeUser;
+    private enum Mode{
+        INSCRIPTION,
+        CANCEL
+    }
     
     public CommonUser() {
         initComponents();
         setLocationRelativeTo(null);
+        activeUser = new Session();
     }
     
     public void setController(CommonUserController ctrl){
@@ -153,6 +160,11 @@ public class CommonUser extends javax.swing.JFrame {
                 "Evento", "Palestrante", "Sala", "Data", "Horário", "Inscrição"
             }
         ));
+        userEventsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userEventsTableMouseClicked(evt);
+            }
+        });
         userEventsTableSP.setViewportView(userEventsTable);
 
         javax.swing.GroupLayout userEventsTabPanelLayout = new javax.swing.GroupLayout(userEventsTabPanel);
@@ -214,25 +226,46 @@ public class CommonUser extends javax.swing.JFrame {
     }//GEN-LAST:event_tabPaneStateChanged
 
     private void availableEventsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_availableEventsTableMouseClicked
-        tableItemSelected(availableEventsTable);
+        tableItemSelected(availableEventsTable, Mode.INSCRIPTION);
     }//GEN-LAST:event_availableEventsTableMouseClicked
+
+    private void userEventsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userEventsTableMouseClicked
+        tableItemSelected(userEventsTable, Mode.CANCEL);
+        ctrl.tabSelected(2);
+    }//GEN-LAST:event_userEventsTableMouseClicked
     
-    private void tableItemSelected(JTable table){
+    private void tableItemSelected(JTable table, Mode mode){
         int line = table.getSelectedRow();
         if(line < 0) return;
         
-        ctrl.tableItemSelected(
-                (int) table.getModel().getValueAt(line, 2),
-                LocalDate.parse(
-                    table.getModel().getValueAt(line, 3).toString(),
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                ),
-                LocalTime.parse(
-                    table.getModel().getValueAt(line, 4).toString(),
-                    DateTimeFormatter.ofPattern("HH:mm")
-                ),
-                (float) table.getModel().getValueAt(line, 5)
-        );
+        if(mode == Mode.INSCRIPTION)
+            ctrl.tableItemSelected(
+                    (int) table.getModel().getValueAt(line, 2),
+                    LocalDate.parse(
+                        table.getModel().getValueAt(line, 3).toString(),
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                    ),
+                    LocalTime.parse(
+                        table.getModel().getValueAt(line, 4).toString(),
+                        DateTimeFormatter.ofPattern("HH:mm")
+                    ),
+                    (float) table.getModel().getValueAt(line, 5)
+            );
+        else if(mode == Mode.CANCEL) 
+            ctrl.tableItemSelected(
+                    (int) table.getModel().getValueAt(line, 2),
+                    LocalDate.parse(
+                            table.getModel().getValueAt(line, 3).toString(),
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                    ), 
+                    LocalTime.parse(
+                            table.getModel().getValueAt(line, 4).toString(),
+                            DateTimeFormatter.ofPattern("HH:mm")
+                    ), 
+                    (float) table.getModel().getValueAt(line, 5),
+                    activeUser.getLoggedUser().getEmail()
+            );
+            
     }
     
     public void setTab(int index){
@@ -303,6 +336,11 @@ public class CommonUser extends javax.swing.JFrame {
 
     public JTable getUserEventsTable(){
         return userEventsTable;
+    }
+    
+    public void clearTable(JTable table){
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
     }
     
     public static void main(String args[]) {

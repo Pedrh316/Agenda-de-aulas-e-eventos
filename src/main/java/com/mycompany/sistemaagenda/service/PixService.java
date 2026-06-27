@@ -6,6 +6,18 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import java.awt.image.BufferedImage;
 import com.google.zxing.qrcode.QRCodeWriter;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JFileChooser;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
 public class PixService {
     public static String generatePixPayload(String chave, double valor){
@@ -40,6 +52,74 @@ public class PixService {
         BitMatrix matrix = writer.encode(payload, BarcodeFormat.QR_CODE, width, height);
         
         return MatrixToImageWriter.toBufferedImage(matrix);
+    }
+    
+    public static void generateCancelTicket(String email, LocalDate date, LocalTime time, float fee)
+        throws IOException{
+        int opt = 0;
+        JFileChooser chooser = new JFileChooser();
+        File ticket;
+        PDPage page = new PDPage();
+        PDPageContentStream content;
+        PDType1Font helveticaB = new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD),
+                    helvetica = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
+        LocalDateTime eventTime = LocalDateTime.of(date, time),
+                      cancelTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        
+        chooser.setDialogTitle("Salvar comprovante");
+        chooser.setSelectedFile(new File("cancelamento_inscricao.pdf"));
+        
+        opt = chooser.showSaveDialog(null);
+        
+        if(opt != JFileChooser.APPROVE_OPTION) return;
+        
+        ticket = chooser.getSelectedFile();
+        
+        try(PDDocument doc = new PDDocument()){
+            doc.addPage(page);
+            
+            content = new PDPageContentStream(doc, page);
+            
+            content.setFont(helveticaB, 16);
+            content.beginText();
+            content.newLineAtOffset(150, 700);
+            content.showText("COMPROVANTE DE CANCELAMENTO");
+            content.endText();
+            
+            content.setFont(helvetica, 12);
+            content.beginText();
+            content.newLineAtOffset(80, 620);
+            content.showText("******************************************************************");
+            content.newLineAtOffset(0, -30);
+            content.showText("E-mail: " + email);
+            content.newLineAtOffset(0, -30);
+            content.showText("Data de cancelamento: " + cancelTime.format(formatter));
+            content.newLineAtOffset(0, 0);
+            content.newLineAtOffset(0, -30);
+            content.showText("Data do evento: " + eventTime.format(formatter));
+            content.newLineAtOffset(0, -30);
+            content.showText("Taxa de inscrição: " + Float.toString(fee));
+            content.newLineAtOffset(0, 0);
+            content.endText();
+            
+            content.setFont(helvetica, 12);
+            content.beginText();
+            content.newLineAtOffset(80, 420);
+            content.showText("******************************************************************");
+            content.endText();
+            
+            content.setFont(helvetica, 10);
+            content.beginText();
+            content.newLineAtOffset(80, 400);
+            content.showText("Não possui valor fiscal");
+            content.endText();
+            
+            content.close();
+            doc.save(ticket);
+        } catch(IOException ioe){
+            throw new IOException("Erro ao gerar comprovante");
+        }
     }
     
     private static String campo(String id, String valor){
