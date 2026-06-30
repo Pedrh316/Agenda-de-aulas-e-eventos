@@ -87,7 +87,7 @@ public class CommonUser extends javax.swing.JFrame {
                             .addComponent(logoutBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(userEventsBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(availableEventsBt, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(332, 332, 332))
+                .addContainerGap(332, Short.MAX_VALUE))
         );
         userTabPanelLayout.setVerticalGroup(
             userTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
