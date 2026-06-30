@@ -4,6 +4,9 @@ import com.mycompany.sistemaagenda.model.Database;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.Properties;
 import java.util.Scanner;
@@ -54,13 +57,14 @@ public class DatabaseService {
         );
     }
     
-    public void generate() throws ClassNotFoundException, SQLException, FileNotFoundException{
+    public void generate() throws ClassNotFoundException, SQLException, IOException{
         if(db==null) return;
         
         try(
             Connection con = getConnection();
             Statement st = con.createStatement();
-            Scanner scanner = new Scanner(new File("src/main/java/com/mycompany/sistemaagenda/service/Agenda.sql"))
+            InputStream is = getClass().getResourceAsStream("/Agenda.sql");
+            Scanner scanner = new Scanner(is, StandardCharsets.UTF_8);
         ){
 
             con.setAutoCommit(false);
