@@ -12,9 +12,9 @@ Pedro Henrique da Costa e Silva
 
 * Apache NetBeans IDE 25: https://netbeans.apache.org/front/main/download/nb25/index.html
 * MySQL Workbench 8.0 CE: https://dev.mysql.com/downloads/workbench/8.0.html
+* Configurar SQL no Linux: https://ubuntu.com/server/docs/how-to/databases/install-mysql/
 * JDK 21: https://www.oracle.com/java/technologies/downloads/#java21
 * Git 2.54: https://git-scm.com/install/windows
-  
 ## Como compilar
 
 * Clone o repositório em sua máquina;
