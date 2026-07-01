@@ -27,7 +27,7 @@ Pedro Henrique da Costa e Silva
 * Neste repositório, consulte Actions
 * Clique na action mais recente, role até o final da página e baixe o jar-files.zip
 * Descompacte o jar-files.zip
-* Execute sistema-agenda-1.0-SNAPSHOT.jar (no Windows, basta clicar sobre o ícone. No Linux, rode: `sudo java -jar sistema-agenda-1.0-SNAPSHOT.jar`).
+* Execute sistema-agenda-1.0-SNAPSHOT.jar (no Windows: `java -jar sistema-agenda-1.0-SNAPSHOT.jar`. No Linux, rode: `sudo java -jar sistema-agenda-1.0-SNAPSHOT.jar`).
 
 ### Atenção
 É necessário ter MySQL Workbench e JDK nas versões especificadas acima. 
